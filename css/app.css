@@ -13312,16 +13312,16 @@ button.close {
         font-size: 39px; } }
 
 /* line 49 */
-.main-content {
-  margin-bottom: 2em; }
-  /* line 51 */
-  .main-content .lead {
+.page-content {
+  padding-bottom: 2em;
+  border-bottom: 1px solid #eeeeee; }
+  /* line 52 */
+  .page-content .lead {
     font-style: italic; }
 
-/* line 55 */
+/* line 56 */
 .footer .container {
-  font-family: "Whitney", "Open Sans", sans-serif;
-  /* border-top: $article-border; */ }
+  font-family: "Whitney", "Open Sans", sans-serif; }
   /* line 58 */
   .footer .container .yadda-yadda {
     color: #777777;
