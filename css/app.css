@@ -21,9 +21,6 @@ if (typeof define === 'function' && define.amd) {
 ;@charset "UTF-8";
 /* $brand-primary: #428bca; */
 /* https://color.adobe.com/create/color-wheel/?base=3&rule=Triad&selected=4&name=My%20Color%20Theme&mode=rgb&rgbvalues=0.2434730627173797,0.3116517304038255,0.46470588235294114,1,0.31931310889150677,0.18039215686274512,0.4681725946497683,0.5294117647058822,0.3587955439750037,0.1411764705882353,0.3333333333333333,0.7647058823529411,0.3287025149952402,0.46470588235294114,0.08579185520361986&swatchOrder=0,1,2,3,4 */
-/* Whitney, 'Open Sans' (with -1-2px letter-spacing) */
-/* $font-family-serif: 'Sentinel', "Merriweather", Georgia, "Times New Roman", Times, serif; */
-/* 'Chaparral Pro', 'Sentinel' */
 /* $font-size-h1: floor(($font-size-base * 2.6)); */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 /* line 9, /Users/stringer/BrunchTest/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_normalize.scss */
@@ -1265,7 +1262,7 @@ hr {
 /* line 9, /Users/stringer/BrunchTest/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Whitney", "Avenir Next", "Gotham Narrow", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Whitney", "Open Sans", sans-serif;
   font-weight: 700;
   line-height: 1;
   color: inherit; }
@@ -1646,7 +1643,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace; }
+  font-family: "Source Code Pro", monospace; }
 
 /* line 15, /Users/stringer/BrunchTest/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_code.scss */
 code {
@@ -6650,9 +6647,6 @@ button.close {
 ;@charset "UTF-8";
 /* $brand-primary: #428bca; */
 /* https://color.adobe.com/create/color-wheel/?base=3&rule=Triad&selected=4&name=My%20Color%20Theme&mode=rgb&rgbvalues=0.2434730627173797,0.3116517304038255,0.46470588235294114,1,0.31931310889150677,0.18039215686274512,0.4681725946497683,0.5294117647058822,0.3587955439750037,0.1411764705882353,0.3333333333333333,0.7647058823529411,0.3287025149952402,0.46470588235294114,0.08579185520361986&swatchOrder=0,1,2,3,4 */
-/* Whitney, 'Open Sans' (with -1-2px letter-spacing) */
-/* $font-family-serif: 'Sentinel', "Merriweather", Georgia, "Times New Roman", Times, serif; */
-/* 'Chaparral Pro', 'Sentinel' */
 /* $font-size-h1: floor(($font-size-base * 2.6)); */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 /* line 9, /Users/stringer/BrunchTest/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_normalize.scss */
@@ -7894,7 +7888,7 @@ hr {
 /* line 9, /Users/stringer/BrunchTest/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Whitney", "Avenir Next", "Gotham Narrow", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Whitney", "Open Sans", sans-serif;
   font-weight: 700;
   line-height: 1;
   color: inherit; }
@@ -8275,7 +8269,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace; }
+  font-family: "Source Code Pro", monospace; }
 
 /* line 15, /Users/stringer/BrunchTest/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_code.scss */
 code {
@@ -13283,7 +13277,7 @@ button.close {
 
 /* line 16 */
 .header .container {
-  font-family: "Whitney", "Avenir Next", "Gotham Narrow", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Whitney", "Open Sans", sans-serif;
   /* background: $brand-primary; */
   /* color: white; */
   line-height: 2em;
@@ -13307,7 +13301,7 @@ button.close {
 
 /* line 39 */
 .page-header {
-  font-family: "Whitney", "Avenir Next", "Gotham Narrow", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Whitney", "Open Sans", sans-serif;
   border-bottom: 1px solid #eeeeee; }
   /* line 41 */
   .page-header h1 {
@@ -13326,15 +13320,15 @@ button.close {
 
 /* line 55 */
 .footer .container {
-  font-family: "Whitney", "Avenir Next", "Gotham Narrow", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  border-top: 1px solid #eeeeee; }
+  font-family: "Whitney", "Open Sans", sans-serif;
+  /* border-top: $article-border; */ }
   /* line 58 */
   .footer .container .yadda-yadda {
     color: #777777;
     padding-top: 2em;
     font-size: 12.8px;
     text-align: center;
-    font-family: "Whitney", "Avenir Next", "Gotham Narrow", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    font-family: "Whitney", "Open Sans", sans-serif; }
 
 ;
 //# sourceMappingURL=app.css.map
