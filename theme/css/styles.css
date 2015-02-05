@@ -6,6 +6,180 @@
 /* $color-4: rgb(36, 85, 195); */
 /* $color-5: rgb(84, 118, 22); */
 /* http://howsueisnow.com/gooddesign */
+/* Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
+
+** Load fonts from this directory.
+
+[converter] If $bootstrap-sass-asset-helper if used, provide path relative to the assets load path.
+[converter] This is because some asset helpers, such as Sprockets, do not work with file-relative paths. */
+/* File name for all font files. */
+/* Element ID within SVG icon file. */
+/* Define common padding and border radius sizes and more. Values
+   based on 14px text and 1.428 line-height (~20px to start). */
+/* Global color for active items (e.g., navs or dropdowns). */
+/* Global background color for active items (e.g., navs or dropdowns). */
+/* Width of the `border` for generating carets that indicator dropdowns. */
+/* Carets increase slightly in size for larger components. */
+/* Customizes the `.table` component with basic values, each used across all table variations. */
+/* Padding for `<th>`s and `<td>`s. */
+/* Padding for cells in `.table-condensed`. */
+/* Default background color used for all tables. */
+/* Background color used for `.table-striped`. */
+/* Background color used for `.table-hover`. */
+/* Border color for table and cell borders. */
+/* For each of Bootstrap's buttons, define text, background and border color. */
+/* `<input>` background color */
+/* `<input disabled>` background color */
+/* Text color for `<input>`s */
+/* `<input>` border color */
+/* TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
+Default `.form-control` border radius 
+     This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS. */
+/* Large `.form-control` border radius */
+/* Small `.form-control` border radius */
+/* Border color for inputs on focus */
+/* Placeholder text color */
+/* Default `.form-control` height */
+/* Large `.form-control` height */
+/* Small `.form-control` height */
+/* Background color for textual input addons */
+/* Border color for textual input addons */
+/* Disabled cursor for form controls and buttons. */
+/* Background for the dropdown menu. */
+/* Dropdown menu `border-color`. */
+/* Dropdown menu `border-color` **for IE8**. */
+/* Divider color for between dropdown items. */
+/* Dropdown link text color. */
+/* Hover color for dropdown links. */
+/* Hover background for dropdown links. */
+/* Active dropdown menu item text color. */
+/* Active dropdown menu item background color. */
+/* Disabled dropdown menu item background color. */
+/* Text color for headers within dropdown menus. */
+/* Deprecated `$dropdown-caret-color` as of v3.1.0 */
+/*
+Warning: Avoid customizing these values. They're used for a bird's eye view
+of components dependent on the z-axis and are designed to all work together.
+
+Note: These variables are not generated into the Customizer.
+*/
+/* Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+Extra small screen / phone */
+/* Deprecated `$screen-xs` as of v3.0.1 */
+/* Deprecated `$screen-xs-min` as of v3.2.0 */
+/* Deprecated `$screen-phone` as of v3.0.1 */
+/* Small screen / tablet */
+/* Deprecated `$screen-sm` as of v3.0.1 */
+/* Deprecated `$screen-tablet` as of v3.0.1 */
+/* Medium screen / desktop */
+/* Deprecated `$screen-md` as of v3.0.1 */
+/* Deprecated `$screen-desktop` as of v3.0.1 */
+/* Large screen / wide desktop */
+/* Deprecated `$screen-lg` as of v3.0.1 */
+/* Deprecated `$screen-lg-desktop` as of v3.0.1 */
+/* So media queries don't overlap when required, provide a maximum */
+/*
+//## Define your custom responsive grid.
+
+/* Number of columns in the grid. */
+/* Padding between columns. Gets divided in half for the left and right. */
+/* Navbar collapse */
+/* Point at which the navbar becomes uncollapsed. */
+/* Point at which the navbar begins collapsing. */
+/*
+//## Define the maximum width of `.container` for different screen sizes.
+
+Small screen / tablet */
+/* For `$screen-sm-min` and up. */
+/* Medium screen / desktop */
+/* For `$screen-md-min` and up. */
+/* Large screen / wide desktop */
+/* For `$screen-lg-min` and up. */
+/*
+//##
+
+// Basics of a navbar */
+/* Reset inverted navbar basics */
+/*
+//##
+
+Tooltip max width */
+/* Tooltip text color */
+/* Tooltip background color */
+/* Tooltip arrow width */
+/* Tooltip arrow color */
+/* Popover body background color */
+/* Popover maximum width */
+/* Popover border color */
+/* Popover fallback border color */
+/* Popover title background color */
+/* Popover arrow width */
+/* Popover arrow color */
+/* Popover outer arrow width */
+/* Popover outer arrow color */
+/* Popover outer arrow fallback color */
+/* Default label background color */
+/* Primary label background color */
+/* Success label background color */
+/* Info label background color */
+/* Warning label background color */
+/* Danger label background color */
+/* Default label text color */
+/* Default text color of a linked label */
+/* Padding applied to the modal body */
+/* Padding applied to the modal title */
+/* Modal title line-height */
+/* Background color of modal content area */
+/* Modal content border color */
+/* Modal content border color **for IE8** */
+/* Modal backdrop background color */
+/* Modal backdrop opacity */
+/* Modal header border color */
+/* Modal footer border color */
+/* Background color of the whole progress component */
+/* Progress bar text color */
+/* Variable for setting rounded corners on progress bar. */
+/* Default progress bar color */
+/* Success progress bar color */
+/* Warning progress bar color */
+/* Danger progress bar color */
+/* Info progress bar color */
+/* Background color on `.list-group-item` */
+/* `.list-group-item` border color */
+/* List group border radius */
+/* Background color of single list items on hover */
+/* Text color of active list items */
+/* Background color of active list items */
+/* Border color of active list elements */
+/* Text color for content within active list items */
+/* Text color of disabled list items */
+/* Background color of disabled list items */
+/* Text color for content within disabled list items */
+/* Border color for elements within panels */
+/* Padding around the thumbnail image */
+/* Thumbnail background color */
+/* Thumbnail border color */
+/* Thumbnail border radius */
+/* Custom text color for thumbnail captions */
+/* Padding around the thumbnail caption */
+/* Linked badge text color on hover */
+/* Badge text color in active nav link */
+/* Badge background color in active nav link */
+/* Breadcrumb background color */
+/* Breadcrumb text color */
+/* Text color of current page in the breadcrumb */
+/* Textual separator for between breadcrumb elements */
+/* Horizontal offset for forms and lists. */
+/* Text muted color */
+/* Abbreviations and acronyms border color */
+/* Headings small color */
+/* Blockquote small color */
+/* Blockquote font size */
+/* Blockquote border color */
+/* Page header border color */
+/* Width of horizontal description list titles */
+/* Horizontal line color. */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -1390,7 +1564,7 @@ body {
   font-size: 18px;
   line-height: 1.33333333;
   color: #333333;
-  background-color: #eee;
+  background-color: #f2f2f2;
 }
 
 input,
@@ -1437,7 +1611,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.33333333;
-  background-color: #eee;
+  background-color: #f2f2f2;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1800,8 +1974,8 @@ abbr[data-original-title] {
 blockquote {
   padding: 12px 24px;
   margin: 0 0 24px;
-  font-size: 22.5px;
-  border-left: 5px solid #eeeeee;
+  font-size: 28.125px;
+  border-left: 5px solid #22ae3a;
 }
 blockquote p:last-child,
 blockquote ul:last-child,
@@ -1826,7 +2000,7 @@ blockquote .small:before {
 blockquote.pull-right {
   padding-right: 15px;
   padding-left: 0;
-  border-right: 5px solid #eeeeee;
+  border-right: 5px solid #22ae3a;
   border-left: 0;
   text-align: right;
 }
@@ -1863,8 +2037,8 @@ samp {
 code {
   padding: 2px 4px;
   font-size: 90%;
-  color: #c7254e;
-  background-color: #f9f2f4;
+  color: #262626;
+  background-color: #e5e5e5;
   border-radius: 4px;
 }
 
@@ -2854,7 +3028,7 @@ th {
   border-top: 2px solid #ddd;
 }
 .table .table {
-  background-color: #eee;
+  background-color: #f2f2f2;
 }
 
 .table-condensed > thead > tr > th,
@@ -4425,7 +4599,7 @@ tbody.collapse.in {
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #eee;
+  background-color: #f2f2f2;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -4501,7 +4675,7 @@ tbody.collapse.in {
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #eee;
+    border-bottom-color: #f2f2f2;
   }
 }
 
@@ -5359,7 +5533,7 @@ a.badge:hover, a.badge:focus {
   padding: 4px;
   margin-bottom: 24px;
   line-height: 1.33333333;
-  background-color: #eee;
+  background-color: #f2f2f2;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
@@ -7144,10 +7318,19 @@ button.close {
   font-weight: normal;
   font-style: normal;
 }
+*::-moz-selection {
+  color: #000;
+  background-color: #ffe300;
+}
+*::selection {
+  color: #000;
+  background-color: #ffe300;
+}
+
 .container {
   width: auto;
-  max-width: 660px;
-  padding: 0 30px;
+  max-width: 640px;
+  padding: 0 20px;
 }
 
 .header .container {
@@ -7197,12 +7380,51 @@ button.close {
 }
 #text img {
   border: 5px solid black;
-  height: 80px;
+  height: 120px;
+}
+#text strong {
+  /* font-family: $font-family-sans-serif; */
+}
+#text ol, #text ul {
+  display: block;
+  padding-left: 40px;
+}
+#text ol {
+  counter-reset: mylist 0;
+  list-style-type: decimal;
+}
+#text ol li {
+  list-style: none;
+  position: relative;
+  margin: 1em 0;
+}
+#text ol li:before {
+  counter-increment: mylist 1;
+  content: counter(mylist,decimal);
+  background: #22ae3a;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  left: -40px;
+  height: 20px;
+  line-height: 16px;
+  color: #f2f2f2;
+  font-size: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-align: center;
+  top: 0px;
+  font-family: "Source Code Pro", monospace;
+  font-weight: normal;
+  font-style: normal;
 }
 
 .page-header {
   font-family: "ATCOverlook", "Open Sans", sans-serif;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #d8d8d8;
 }
 .page-header h1 {
   letter-spacing: -0.02em;
@@ -7220,13 +7442,22 @@ button.close {
 
 .page-content {
   padding-bottom: 2em;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #d8d8d8;
 }
 .page-content .lead {
   font-style: italic;
 }
 .page-content img {
   width: 100%;
+}
+
+#my-face {
+  width: 100px;
+  height: 100px;
+  border: 5px solid #34bdee;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
 }
 
 .footer .container {
@@ -7277,4 +7508,47 @@ button.close {
   width: 100%;
   height: 100%;
   z-index: -1;
+}
+
+#mc_embed_signup {
+  padding-top: 20px;
+  clear: left;
+  font-family: "ATCOverlook", "Open Sans", sans-serif;
+}
+#mc_embed_signup form {
+  padding: 0;
+}
+#mc_embed_signup #mc_embed_signup_scroll {
+  width: 100%;
+  clear: both;
+}
+#mc_embed_signup #mc_embed_signup_scroll label {
+  font-size: 14.4px;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding: 0;
+}
+#mc_embed_signup #mc_embed_signup_scroll input.email {
+  float: left;
+  width: 70%;
+  margin: 0;
+  display: inline-block;
+  background: #f8f8f8;
+}
+#mc_embed_signup #mc_embed_signup_scroll input.button {
+  font-weight: normal;
+  display: inline-block;
+  margin: 0;
+  width: 25%;
+  border-radius: 0;
+  border: 0px;
+  height: 42px;
+  background: #555555;
+}
+#mc_embed_signup #mc_embed_signup_scroll input.button:hover {
+  background: black;
+}
+#mc_embed_signup div.mce_inline_error {
+  font-weight: normal !important;
+  background: #ed5700 !important;
 }
