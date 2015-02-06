@@ -7329,8 +7329,8 @@ button.close {
 
 .container {
   width: auto;
-  max-width: 640px;
-  padding: 0 20px;
+  max-width: 636px;
+  padding: 0 18px;
 }
 
 .header .container {
@@ -7378,16 +7378,12 @@ button.close {
   left: 0;
   color: black;
 }
-#text img {
-  border: 5px solid black;
-  height: 120px;
-}
-#text strong {
-  /* font-family: $font-family-sans-serif; */
-}
 #text ol, #text ul {
   display: block;
-  padding-left: 40px;
+  padding-left: 36px;
+}
+#text ol li, #text ul li {
+  margin: 0.5em 0;
 }
 #text ol {
   counter-reset: mylist 0;
@@ -7396,30 +7392,18 @@ button.close {
 #text ol li {
   list-style: none;
   position: relative;
-  margin: 1em 0;
 }
 #text ol li:before {
   counter-increment: mylist 1;
-  content: counter(mylist,decimal);
-  background: #22ae3a;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  content: counter(mylist,decimal) ".";
   position: absolute;
-  left: -40px;
-  height: 20px;
-  line-height: 16px;
-  color: #f2f2f2;
-  font-size: 20px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  text-align: center;
-  top: 0px;
+  left: -36px;
+  width: 31.2px;
+  font-size: 14.4px;
+  text-align: right;
+  top: 1.8px;
   font-family: "Source Code Pro", monospace;
-  font-weight: normal;
-  font-style: normal;
+  font-weight: 700;
 }
 
 .page-header {
@@ -7428,8 +7412,8 @@ button.close {
 }
 .page-header h1 {
   letter-spacing: -0.02em;
-  font-family: Vollkorn, Georgia, serif;
-  font-weight: normal;
+  font-family: "ATCOverlook", "Open Sans", sans-serif;
+  font-weight: bold;
 }
 @media screen and (max-width: 768px) {
   .page-header h1 {
@@ -7451,17 +7435,22 @@ button.close {
   width: 100%;
 }
 
-#my-face {
-  width: 100px;
-  height: 100px;
-  border: 5px solid #34bdee;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  border-radius: 50px;
-}
-
 .footer .container {
   font-family: "ATCOverlook", "Open Sans", sans-serif;
+}
+.footer .container .aboutme {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+.footer .container .aboutme img#my-face {
+  width: 80px;
+  height: 80px;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+  border-radius: 40px;
+  background-color: #93d7f0;
+  float: left;
+  margin-right: 18px;
 }
 .footer .container .yadda-yadda {
   color: #777777;
@@ -7511,7 +7500,7 @@ button.close {
 }
 
 #mc_embed_signup {
-  padding-top: 20px;
+  padding-top: 18px;
   clear: left;
   font-family: "ATCOverlook", "Open Sans", sans-serif;
 }
@@ -7525,7 +7514,7 @@ button.close {
 #mc_embed_signup #mc_embed_signup_scroll label {
   font-size: 14.4px;
   font-weight: normal;
-  text-transform: uppercase;
+  text-transform: lowercase;
   padding: 0;
 }
 #mc_embed_signup #mc_embed_signup_scroll input.email {
