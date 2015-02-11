@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>List styling with aligned decimals</title>
+    <title>Style ordered list numbers with different font and aligned decimal points</title>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
@@ -46,17 +46,35 @@
     <!-- Begin page content -->
     <div class="container">
 <div class="page-header">
-  <h1 class="title">List styling with aligned&nbsp;decimals</h1>
+  <h1 class="title">Style ordered list numbers with different font and aligned decimal&nbsp;points</h1>
   <p>
     <span class="date">February, 2015</span> &bull;
     <span class="author"><a href="http://twitter.com/intent/user?screen_name=mstringer">@mstringer</a></span>
   </p>
 </div>
 <div class="page-content">
-  <!-- <p class="lead">~1 min read</p> -->
-  <p class="lead">Make ordered lists ever so nice.</p>
+  <!-- <p class="lead">~2 min read</p> -->
+  <!-- <p class="lead">Good typography reinforces the meaning of the text. Matthew Butterick You’d think with all of the listicles out there, there would be lots of great examples of ordered list styling. Fortunately, by combining a couple of lesser-known CSS properties you can add numbers to your ordered lists that look ...</p> -->
   <div id="text">
-    <p>I </p>
+    <blockquote>
+<p>Good typography reinforces the meaning of the&nbsp;text.</p>
+<p><cite><a href="http://practicaltypography.com/what-is-good-typography.html">Matthew Butterick</a></cite></p>
+</blockquote>
+<p>You&#8217;d think with all of the listicles out there, there would be lots
+of great examples of ordered list&nbsp;styling.</p>
+<p>Fortunately, by combining a couple of lesser-known <span class="caps">CSS</span> properties you
+can add numbers to your ordered lists that look just the way you want
+them to. In fact, after this tutorial, you’ll be able to change fonts,
+colors and nearly every other style attribute of numbers in&nbsp;lists.</p>
+<p>The secret is twofold: first, hide the regular numbers entirely, then
+use the ::before pseudo-element to add the numbers back.Web browsers
+also dictate the way that bulleted and numbered lists should look. For
+example, browsers make it hard to change the style of bullets in
+unordered lists or numbers in ordered lists. Sure, there are a few <span class="caps">CSS</span>
+styles like list-style-type, list-style-image, and
+list-style-position, but doing something as simple as changing the
+color of the numbers in the list usually involves some weird <span class="caps">HTML</span>/<span class="caps">CSS</span>&nbsp;workarounds.</p>
+<p>http://practicaltypography.com/bulleted-and-numbered-lists.html</p>
 <div class="highlight"><pre><span class="nt">11111111112222222222333333333344444444445555555555666666666677777777778888888888</span>
 <span class="nt">ol</span><span class="o">,</span> <span class="nt">ul</span> <span class="p">{</span>
   <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
@@ -116,8 +134,8 @@
   </div>
   <h4>Related Posts</h4>
   <ul>
-    <li><a href="/2010/bunga-review/">Bunga&nbsp;Review</a></li>
     <li><a href="/2010/my-first-review/">My First Review Has A Really Long Title, But It&#8217;s&nbsp;Awesome</a></li>
+    <li><a href="/2010/bunga-review/">Bunga&nbsp;Review</a></li>
     <li><a href="/2011/bunga-talk/">Bunga&nbsp;Talk</a></li>
   </ul>
   <p>I write about yadda yadda, <a href="/">see all posts.</a></p>

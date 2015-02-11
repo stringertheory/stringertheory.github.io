@@ -5,35 +5,35 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/</loc>
-<lastmod>2015-02-10T12:20:05-00:00</lastmod>
+<lastmod>2015-02-10T23:36:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2015-02-10T12:20:05-00:00</lastmod>
+<lastmod>2015-02-10T23:36:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2015-02-10T12:20:05-00:00</lastmod>
+<lastmod>2015-02-10T23:36:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2015-02-10T12:20:05-00:00</lastmod>
+<lastmod>2015-02-10T23:36:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/2015/list-styling-with-aligned-decimals/</loc>
-<lastmod>2015-02-09T00:00:00-06:00</lastmod>
+<loc>/2015/styling-ordered-lists-aligned-decimal/</loc>
+<lastmod>2015-02-10T00:00:00-06:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -61,7 +61,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/category/article.html</loc>
-<lastmod>2015-02-09T00:00:00-05:51</lastmod>
+<lastmod>2015-02-10T00:00:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -82,14 +82,21 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/tag/bunga.html</loc>
-<lastmod>2015-02-09T00:00:00-05:51</lastmod>
+<lastmod>2015-02-10T00:00:00-05:51</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/typography.html</loc>
+<lastmod>2015-02-10T00:00:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/author/mike-stringer.html</loc>
-<lastmod>2015-02-09T00:00:00-05:51</lastmod>
+<lastmod>2015-02-10T00:00:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
