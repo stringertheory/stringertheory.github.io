@@ -11,9 +11,11 @@
     <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700|Vollkorn:400italic,700italic,400,700|Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/theme/css/styles.css" />
 
-    <!-- highlight.js -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <!-- svg.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/1.0.1/svg.min.js"></script>
+
+    <!-- tween.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tweenjs/0.6.0/tweenjs.min.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,45 +31,21 @@
 
   <body>
 
-    <canvas id="canvas"></canvas>
-    
-    <!-- <header class="header"> -->
-    <!--   <div class="container"> -->
-    <!-- 	<div class="left"> -->
-    <!-- 	  <a href="/"><i class="fa fa-fw fa-home"></i></a> -->
-    <!-- 	</div> -->
-    <!-- 	<div class="right"> -->
-    <!-- 	  <a href="https://twitter.com/mstringer"><i class="fa fa-fw fa-twitter"></i></a> -->
-    <!-- 	</div> -->
-    <!-- 	<div class="name">Mike Stringer</div> -->
-    <!--   </div> -->
-    <!-- </header> -->
+    <!-- <canvas id="canvas"></canvas> -->
 
-    <!-- Begin page content -->
-    <div class="container">
-<p>Hi.</p>
-<p>A brief description of me.</p>
-<h3>Posts</h3>
-<ul id="posts-list">
-</ul><!-- /#posts-list -->
-<!-- <h3>Talks</h3> -->
-<!-- <ul id="posts-list"> -->
-<!--    -->
-<!--    -->
-<!--   <li> -->
-<!--     <span class="date">December, 2011</span> -->
-<!--     <div> -->
-<!--       <a href="http://mike.stringer.io"> -->
-<!-- 	<h4>Bunga&nbsp;Talk</h4> -->
-<!--       </a> -->
-<!--       <p class="summary">Bunga Bung.</p> -->
-<!--     </div> -->
-<!--   </li> -->
-<!--    -->
-<!--    -->
-<!-- </ul><\!-- /#talks-list -\-> -->
-    </div>
+<div class="container">
+  <div id="hello">
+    <canvas id="hello-canvas"></canvas>
+    <img src="theme/images/hello.png" />
+  </div>
+  <p>Hi.</p>
+  <p>A brief description of me.</p>
+  <h3>Posts</h3>
+  <ul id="posts-list">
+  </ul>
+</div>
 
+<script type="text/paperscript" src="theme/js/front.js" canvas="hello-canvas"></script>
 
 
   </body>
