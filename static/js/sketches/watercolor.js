@@ -72,7 +72,7 @@ function regenerate() {
   
   var canvas = document.getElementById('canvas');
   paper.setup(canvas);
-
+  
   // setSeed()
   
   var nLayers = 42;
