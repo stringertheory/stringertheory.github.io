@@ -68,17 +68,12 @@ function dataURItoBlob(dataURI) {
   return blob;
 }
 
-function download(svg_id='#canvas') {
-  if (svg_id[0] === '#') {
-    var svg_id = svg_id.split('#')[1];
-  }
-  var svg = document.getElementById(svg_id);
+function download_svg(svg) {
   svg.toDataURL("image/png", {
     callback : function(data) {
       var image = data.replace("image/png", "image/octet-stream");
 
       var hash_pre = md5(image)
-      console.log(hash_pre, window.location.pathname);
       var hash = hash_pre.substring(0, 6)
       var filename = window.location.pathname + window.location.hash + '-' + hash;
       var png_filename = filename + ".png";
@@ -96,13 +91,22 @@ function download(svg_id='#canvas') {
   });
 }
 
-function download_paper(id='#canvas') {
-  if (id[0] === '#') {
-    var id = id.split('#')[1];
+function download(element_id='#canvas') {
+  if (element_id[0] === '#') {
+    var element_id = element_id.split('#')[1];
   }
-  var canvas = document.getElementById(id);
+  var element = document.getElementById(element_id);
+  if (element.nodeName == 'svg') {
+    download_svg(element);
+  } else if (element.nodeName == 'CANVAS') {
+    download_canvas(element);
+  } else {
+    console.log('unknown element', element.nodeName);
+  }
+}
+
+function download_canvas(canvas) {
   var hash_pre = md5(canvas)
-  console.log(hash_pre, window.location.pathname);
   var hash = hash_pre.substring(0, 6)
   var filename = window.location.pathname + window.location.hash + '-' + hash;
   var png_filename = filename + ".png";
@@ -110,7 +114,6 @@ function download_paper(id='#canvas') {
 }
 
 function download_as_file(filename, url) {
-  console.log(filename);
   var a = document.createElement('a');
   a.href = url;
   a.download = filename;
