@@ -7,10 +7,17 @@
         <title> | Mike Stringer</title>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141143090-1"></script>
         <script>
+         var ga_metrics = {
+             'metric1': 'n_x',
+             'metric2': 'n_y',
+             'metric3': 'n_colors',
+             'metric4': 'stroke_width',
+             'metric5': 'grid_jitter',
+         };
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
          gtag('js', new Date());
-         gtag('config', 'UA-141143090-1');
+         gtag('config', 'UA-141143090-1', {'custom_map': ga_metrics});
         </script>
 
         <meta name="description" content="Generative sketch inspired by a painting of a tree" />
@@ -62,7 +69,8 @@
 }
 </script>
 
-        <link type="text/css" rel="stylesheet" href="/static/build/main.a7f0bc32.css">
+        <link type="text/css" rel="stylesheet" href="/static/build/main.63f3a2e7.css">
+        <script type="text/javascript" src="/static/build/main.0dbb06fc.js"></script>
         <link rel="stylesheet" href="/static/highlight/styles/github.css">
         <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
     </head>
@@ -88,25 +96,33 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.6.0/js/md5.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.0/seedrandom.min.js"></script>
-<script type="text/javascript" src=/static/js/sketches/lib/hsluv.min.js></script>
-<script type="text/javascript" src=/static/js/sketches/lib/svg_todataurl.js></script>
-<script type="text/javascript" src=/static/js/sketches/lib/perlin.js></script>
-<script type="text/javascript" src=/static/js/sketches/lib/utils.js></script>
-
-<div>
-<button onclick="window.location.hash = makeid(7)" class="button"><i class="fas fa-redo"></i> Regenerate</button>
-<button onclick="download()" class="button"><i class="fas fa-arrow-down"></i> Download</button>
-</div> 
+<script src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.js"></script>
+<div id="buttons">
+    <button onclick="window.location.hash = makeid(7)" class="button"><i class="fas fa-redo"></i> Regenerate</button>
+    <button onclick="download()" class="button"><i class="fas fa-arrow-down"></i> Download</button>
+</div>
+<div id="parameters"></div> 
         <script src="/static/js/sketches/tree.js"></script>
 
 <h2>Notes</h2>
 <p>Inspired by <a href="https://twitter.com/CGdrawing/status/815987689287581696">this painting of a tree</a>.</p>
 <script>
+ function change_hash() {
+     window.location.hash = makeid(7);
+ }
  function hashy_mchashface() {
      regenerate();
      if (typeof gtag !== 'undefined') {
          // consider treating regenerated differently?
-         gtag('event', 'sketch_generated');
+         var custom_metrics = {};
+         _.each(
+             _.intersection(_.keys(parameters), _.values(ga_metrics)),
+             function (name) {
+                 custom_metrics[name] = parameters[name].get() * 1000;
+             }
+         )
+         gtag('event', 'sketch_generated', custom_metrics);
      }
  }
  document.addEventListener('DOMContentLoaded', function() {
@@ -127,7 +143,6 @@
                 <p>Questions or comments? Please <a href="mailto:mike.stringer.internet@gmail.com">email me</a> or tweet <a href="https://twitter.com/mstringer">@mstringer</a>. Thanks for visiting!</p>
             </footer>
         </div>
-        
         <script src="/static/highlight/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
     </body>

@@ -20,14 +20,13 @@ function makeSVG(n_x, n_y, border=0) {
   s.clear()
   s.attr({
     width: WIDTH,
-    // height: WIDTH * (n_y / n_x),
     viewBox: Snap.format('{min_x} {min_y} {width} {height}', {
       min_x: -border,
       min_y: -border,
       width: n_x + 2*border,
       height: n_y + 2*border
     }),
-    // transform: "scale(-1,1)",
+    // transform: "scale(1,0.333)",
     // transform: "rotate(180)"
   })
   var g = s.group()
@@ -60,7 +59,7 @@ function dataURItoBlob(dataURI) {
   var ab = new ArrayBuffer(byteString.length);
   var ia = new Uint8Array(ab);
   for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
+    ia[i] = byteString.charCodeAt(i);
   }
 
   // write the ArrayBuffer to a blob, and you're done
@@ -72,7 +71,7 @@ function download_svg(svg) {
   svg.toDataURL("image/png", {
     callback : function(data) {
       var image = data.replace("image/png", "image/octet-stream");
-
+      
       var hash_pre = md5(image)
       var hash = hash_pre.substring(0, 6)
       var filename = window.location.pathname + window.location.hash + '-' + hash;
@@ -143,21 +142,60 @@ function convertToPath(points) {
 
 
 function makeid(length) {
-   var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-   var charactersLength = characters.length;
-   for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
-function compliment(color, angle) {
+function compliment(color, angle, lightness) {
   if (angle === undefined) {
     angle = 180;
   }
-  var h = color.hcl()[0] + angle
-  var c = color.hcl()[1]
-  var l = 0.5 * ((100 - color.hcl()[2]) + color.hcl()[2])
-  return chroma.hcl(h, c, l).hex()
+  if (lightness === undefined) {
+    lightness = 1;
+  }
+  var h = color.hcl()[0] + angle;
+  var c = color.hcl()[1];
+  var l = color.hcl()[2] * lightness;
+  return chroma.hcl(h, c, l);
+}
+
+function make_parameters(div_id, parameter_list) {
+  var parent_div = document.getElementById(div_id);
+  var result = {}
+  _.each(parameter_list, function (conf) {
+    var name = conf.name;
+    var parameter_div = document.createElement('div')
+    parameter_div.classList.add('parameter')
+    var slider = document.createElement('div')
+    slider.id = "slider-" + name;
+    slider.classList.add("parameter-slider")
+    parameter_div.appendChild(slider);
+    var sliderValue = document.createElement('input')
+    sliderValue.id = "slider-" + name + '-value';
+    sliderValue.classList.add('parameter-input')
+    parameter_div.appendChild(sliderValue);
+    parent_div.appendChild(parameter_div);
+    console.log(parent_div);
+    noUiSlider.create(slider, conf);
+    slider.noUiSlider.on('update', function (values, handle) {
+      sliderValue.value = values[handle];
+    });
+    sliderValue.addEventListener('change', function () {
+      slider.noUiSlider.set(this.value);
+    });
+    result[name] = slider.noUiSlider;
+  })
+  return result;
+}
+
+function format_int () {
+  return {
+    'to': function(value) {return parseInt(value)},
+    'from': function(value) {return parseInt(value)}
+  }
 }

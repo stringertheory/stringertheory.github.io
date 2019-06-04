@@ -92,7 +92,7 @@ function regenerate () {
     var radius = 0.25 + 0.5 * Math.random();
     var color = base_color;
     if (Math.random() < 0.5) {
-      color = compliment(base_color);
+      color = compliment(base_color).hex();
     }
     flowers.push(flower(s, x, y, radius, color, nPetals, angleOffset));
     nFlowers += 1;

@@ -1,4 +1,33 @@
-
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [11],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [11],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'n_colors',
+    start: [2],
+    range: {'min': 2, 'max': 20},
+    format: format_int()
+  }, {
+    name: 'stroke_width',
+    start: [0],
+    range: {'min': 0, 'max': 0.2},
+  }, {
+    name: 'stroke_width_inner',
+    start: [0],
+    range: {'min': 0, 'max': 0.2},
+  }, {
+    name: 'grid_jitter',
+    start: [0.5],
+    range: {'min': 0, 'max': 1},
+  }
+]);
 
 // http://simoncpage.co.uk/blog/2009/08/random-dance-geometric-poster-designs/
 // http://www.pbase.com/brownsf/amish_quilts
@@ -12,63 +41,44 @@ function rando() {
 }
 
 function regenerate () {
-  var SVG_ID = '#canvas'
-  var N_X = 9
-  var N_Y = 9
+
+  var slider = document.getElementById('slider-1');
+  var slider2 = document.getElementById('slider-2');
+  
+  var N_X = parameters['n_x'].get();
+  var N_Y = parameters['n_y'].get();
+  var N_COLORS = parameters['n_colors'].get();
+  var STROKE_WIDTH = parameters['stroke_width'].get();
+  var BOX_STROKE_WIDTH = parameters['stroke_width_inner'].get();
+  var GRID_JITTER = parameters['grid_jitter'].get();
   
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y)
 
   var color1 = rando()
-  // var color1 = chroma.random()
-  // var color2 = chroma.random()
-  var colors = [
-    color1.hex(),
-    compliment(color1, 180),
-    // compliment(color1, 240),
-    // color2.hex(),
-    // compliment(color2, 120),
-    // compliment(color2, 240)
-  ]
-  // var colors = [
-  //   chroma.blend('0000ff', '0000aa', 'multiply').hex(),
-  //   chroma.blend('red', 'blue', 'darken').hex()
-  // ]
-  // var colors = _.map(_.range(3), function (i) {
-  //   return chroma.random().hex()
-  // })
-  // var colors = chroma.scale([chroma.random(), chroma.random()]).colors(7)
-  // var colors = [
-  //   Snap.rgb(43, 188, 230),
-  //   Snap.rgb(37, 165, 55),
-  //   Snap.rgb(220, 220, 220),
-  //   Snap.rgb(0, 0, 0),
-  //   Snap.rgb(43, 188, 230),
-  //   Snap.rgb(37, 165, 55),
-  //   Snap.rgb(220, 220, 220),
-  //   Snap.rgb(0, 0, 0),
-  //   Snap.rgb(43, 188, 230),
-  //   Snap.rgb(37, 165, 55),
-  //   Snap.rgb(220, 220, 220),
-  //   Snap.rgb(0, 0, 0),
-  //   Snap.rgb(43, 188, 230),
-  //   Snap.rgb(37, 165, 55),
-  //   Snap.rgb(220, 220, 220),
-  //   Snap.rgb(0, 0, 0),
-  //   Snap.rgb(43, 188, 230),
-  //   Snap.rgb(37, 165, 55),
-  //   Snap.rgb(200, 200, 200),
-  //   Snap.rgb(0, 0, 0)    
-  // ]
-  
+  var colors = [];
+  colors.push(color1);
+  _.each(_.range(1, N_COLORS), function (i) {
+    var color = compliment(
+      color1, i * 360 / N_COLORS,
+      0.5 * (1 + Math.random())
+    ).hex()
+    colors.push(color);
+  })
+  // var colors = chroma.scale([color1, compliment(color1)]).colors(N_COLORS)
   var stroker = colors[0]
 
+  s.rect(0, 0, N_X, N_Y).attr({
+    fill: colors[0],
+    stroke: 'none'
+  })
+  
   var grid = []
   _.each(_.range(N_X + 1), function (x) {
     var row = []
     _.each(_.range(N_Y + 1), function (y) {
       if (x > 0 && y > 0 && x < N_X && y < N_Y) {
-        row.push([x + jitter(0.5), y + jitter(0.5)])
+        row.push([x + jitter(GRID_JITTER), y + jitter(GRID_JITTER)])
       } else {
         row.push([x, y])
       }
@@ -87,8 +97,8 @@ function regenerate () {
         var height = 2 * (colors.length - index) / colors.length
         group.add(s.rect(x - 0.5, y - 0.5, 2, height).attr({
           fill: color,
-          stroke: 'none',
-          strokeWidth: 0.02
+          stroke: stroker,
+          strokeWidth: BOX_STROKE_WIDTH
         }))
       })
       var path = [
@@ -98,11 +108,11 @@ function regenerate () {
         grid[x][y + 1]
       ]
       var clipper = s.polyline(path)
-      // var blipper = s.polyline(path).attr({
-      //   fill: 'none',
-      //   stroke: stroker,
-      //   strokeWidth: 0.05
-      // })
+      var blipper = s.polyline(path).attr({
+        fill: 'none',
+        stroke: stroker,
+        strokeWidth: STROKE_WIDTH
+      })
       if (Math.random() < 1) {
         var angle = 360 * (Math.random() - 0.5)
         group.transform(
@@ -126,3 +136,7 @@ function regenerate () {
     })
   })
 }
+
+
+window.onload = function() {
+};

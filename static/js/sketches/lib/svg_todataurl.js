@@ -41,7 +41,8 @@
 
 SVGElement.prototype.toDataURL = function(type, options) {
 	var _svg = this;
-	
+        var _image_width = 1200;
+  
 	function debug(s) {
 		console.log("SVG.toDataURL:", s);
 	}
@@ -119,9 +120,11 @@ SVGElement.prototype.toDataURL = function(type, options) {
 		svg_img.src = base64dataURLencode(svg_xml);
 
 		svg_img.onload = function() {
-			debug("exported image size: " + [svg_img.width, svg_img.height])
-			canvas.width = svg_img.width;
-			canvas.height = svg_img.height;
+		  debug("exported image size: " + [svg_img.width, svg_img.height])
+                  canvas.width = _image_width
+                  canvas.height = _image_width * (svg_img.height / svg_img.width)
+			// canvas.width = svg_img.width;
+			// canvas.height = svg_img.height;
 			ctx.drawImage(svg_img, 0, 0);
 
 			// SECURITY_ERR WILL HAPPEN NOW

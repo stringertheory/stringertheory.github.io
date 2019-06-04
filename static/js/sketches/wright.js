@@ -106,9 +106,9 @@ function regenerate () {
   var CIRCLE_FILL = chroma('gold').darken(0.5);
   var TAIL_FILL = chroma('gold').darken(1);
 
-  var N_TEXTURE = 0;//3000;//00;
+  var N_TEXTURE = 3000;//3000;//00;
   var TEXTURE_COLOR = BASE_COLOR.brighten(2);
-  var TEXTURE_WIDTH = 0.04;
+  var TEXTURE_WIDTH = 0.05;
   var TEXTURE_HEIGHT = 0.9;
   var TEXTURE_OPACITY = 0.05;
 

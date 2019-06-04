@@ -254,7 +254,7 @@ function regenerate() {
         x = cx + jitter - rectWidth;
       }
       color = pick_avoid(colors, [color]);
-      color = bgColor;//chroma('white');
+      color = bgColor;
       s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
         fill: tweak(color).hex()
       })
@@ -306,7 +306,7 @@ function regenerate() {
         x = cx + jitter;
       }
       color = pick_avoid(colors, [color]);
-      color = bgColor;//chroma('white');
+      color = bgColor;
       s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
         fill: tweak(color).hex()
       })
