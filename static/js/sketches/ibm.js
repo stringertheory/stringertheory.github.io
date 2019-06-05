@@ -1,9 +1,23 @@
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [5],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [5],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }
+]);
+
 // http://gooddesignisgoodbusiness.tumblr.com/post/81138299227/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
 
 function regenerate () {
 
-  var N_X = 5
-  var N_Y = 5
+  var N_X = parameters['n_x'].get();
+  var N_Y = parameters['n_y'].get();
   var STROKE_WIDTH = 0.0
   var WHITE = '#ffffff'
   var BORDER = 0.5;

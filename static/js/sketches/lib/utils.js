@@ -198,4 +198,4 @@ function format_int () {
     'to': function(value) {return parseInt(value)},
     'from': function(value) {return parseInt(value)}
   }
-}
+};

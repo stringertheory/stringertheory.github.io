@@ -219,4 +219,4 @@ SVGElement.prototype.toDataURL = function(type, options) {
 		default:
 			debug("Sorry! Exporting as '" + type + "' is not supported!")
 	}
-}
+};
