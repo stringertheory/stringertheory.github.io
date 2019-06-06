@@ -18,6 +18,19 @@
          function gtag(){dataLayer.push(arguments);}
          gtag('js', new Date());
          gtag('config', 'UA-141143090-1', {'custom_map': ga_metrics});
+         document.addEventListener('click', function (event) {
+             var url = event.target.href;
+             var host = event.target.host;
+             if (url && host && host !== window.location.host) {
+                 gtag('event', 'click', {
+                     'event_category': 'outbound',
+                     'event_label': url,
+                     'transport_type': 'beacon',
+                     'event_callback': function(){document.location = url;}
+                 });
+             }
+             return false;
+         });
         </script>
 
         <meta name="description" content="booya booya" />
