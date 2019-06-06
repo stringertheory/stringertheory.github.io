@@ -1,3 +1,17 @@
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [1],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [1],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }
+]);
+
 // TODO:
 // randomize mouth shape (slight smile versus straight) X
 // randomize mouth rotation (can be slightly askew) X
@@ -45,8 +59,8 @@ function mouthline(x0, y0, width, height, n_points, jitter) {
 
 function regenerate() {
 
-  var N_X = 5
-  var N_Y = 5
+  var N_X = parameters['n_x'].get();
+  var N_Y = parameters['n_y'].get();
   var N_POINTS = 36 * 2
   var STROKE_WIDTH = 0.03;
   var STROKE_COLOR = 'black';

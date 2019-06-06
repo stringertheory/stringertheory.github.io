@@ -68,8 +68,8 @@ function overlap (shapes, x, y, n, max) {
 function regenerate () {
 
   var SVG_ID = '#canvas'
-  var N_X = 10
-  var N_Y = 10
+  var N_X = 9
+  var N_Y = 9
   var N_FLOWERS = 42;
   var MAX_TRIES = 0;
   
@@ -89,10 +89,13 @@ function regenerate () {
     while (overlap(flowers, x, y, nTries, MAX_TRIES));
     var angleOffset = Math.random() * 2 * Math.PI;
     var nPetals = randomInt(5, 13);
-    var radius = 0.25 + 0.5 * Math.random();
+    var radius = 0.25 + 0.75 * Math.random();
+    var r = Math.random();
     var color = base_color;
-    if (Math.random() < 0.5) {
-      color = compliment(base_color).hex();
+    if (r < 1/3) {
+      color = compliment(base_color, 45).hex();
+    } else if (r < 2/3) {
+      color = compliment(base_color, 90).hex();
     }
     flowers.push(flower(s, x, y, radius, color, nPetals, angleOffset));
     nFlowers += 1;

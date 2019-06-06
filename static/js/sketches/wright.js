@@ -101,12 +101,8 @@ function regenerate () {
   var CIRCLE_OPACITY = 5/6;
   var CIRCLE_PROBABILITY = 0.1;
   var TAIL_OPACITY = 5/6;
-  var GRID_FILL = chroma('gold').brighten(4);
-  var EYE_FILL = chroma('gold').darken(2.5);
-  var CIRCLE_FILL = chroma('gold').darken(0.5);
-  var TAIL_FILL = chroma('gold').darken(1);
 
-  var N_TEXTURE = 3000;//3000;//00;
+  var N_TEXTURE = 0;//3000;
   var TEXTURE_COLOR = BASE_COLOR.brighten(2);
   var TEXTURE_WIDTH = 0.05;
   var TEXTURE_HEIGHT = 0.9;
@@ -114,10 +110,6 @@ function regenerate () {
 
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y)
-
-  // Sets Math.random to a PRNG initialized using the given explicit seed.
-  // var seed = 1;
-  // Math.seedrandom(seed);
 
   var grid = make_gridpoints(N_X, N_Y);
   

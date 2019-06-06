@@ -1,3 +1,17 @@
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_inside',
+    start: [11],
+    range: {'min': 1, 'max': 42},
+    format: format_int()
+  }, {
+    name: 'n_outside',
+    start: [7],
+    range: {'min': 1, 'max': 42},
+    format: format_int()
+  }
+]);
+
 function ngon(angle, n, rotation=0) {
   return Math.cos(Math.PI / n) / Math.cos(((angle + rotation) % (2 * Math.PI / n)) - (Math.PI / n));
 }
@@ -13,8 +27,9 @@ function regenerate () {
   var N_X = 4
   var N_Y = 4
   var N_POINTS = FACE.length;
-  var N_OUTSIDE = 7
-  var N_INSIDE = 11
+  var N_INSIDE = parameters['n_inside'].get();
+  var N_OUTSIDE = parameters['n_outside'].get();
+  var STROKE_WIDTH = 0.01;
   
   var BORDER = 0.5;
   var s = makeSVG(N_X, N_Y, BORDER)
@@ -33,23 +48,25 @@ function regenerate () {
 
     var x_noise = 2 * Math.cos(angle);
     var y_noise = 2 * Math.sin(angle);
+    var x_noise2 = 2 * Math.cos(angle + Math.PI / 2);
+    var y_noise2 = 2 * Math.sin(angle + Math.PI / 2);
 
     // var r_mid = 1 + 0.3 * noise.perlin2(x_noise, y_noise)
-    var r_mid = ngon(angle, 5)
+    // var r_mid = ngon(angle, 5)
     // var r_mid = 2 + 0.3 * Math.random();
     // var x_mid = 2 + r_mid * Math.cos(angle);
     // var y_mid = 2 + r_mid * Math.sin(angle);
     var x_mid = 2 + FACE[i][0]
     var y_mid = 2 + FACE[i][1]
 
-    // var r_out = 1 + 0.1 * Math.random()
-    var r_out = 1 + 0.3 * noise.perlin2(x_noise, y_noise)
-    // var r_out = ngon(angle, 100)
+    // var r_out = 1 + 0.2 * Math.random()
+    var r_out = 1 + 0.5 * noise.perlin2(x_noise, y_noise)
+    // var r_out = ngon(angle, 60)
     var x_out = 2 + 2 * r_out * Math.cos(angle);
     var y_out = 2 + 2 * r_out * Math.sin(angle);
 
-    var r_in = ngon(angle, 9) + 0.1 * noise.perlin2(x_noise, y_noise)
-    // var r_in = 1 + noise.perlin2(x_noise, y_noise)
+    // var r_in = ngon(angle, 60)
+    var r_in = 1 + 0.5 * noise.perlin2(x_noise, y_noise)
     var x_in = 2 + 0.3 * r_in * Math.cos(angle);
     var y_in = 2 + 0.3 * r_in * Math.sin(angle);
 
@@ -72,7 +89,7 @@ function regenerate () {
     s.polygon(points).attr({
       stroke: 'black',
       fill: 'none',
-      strokeWidth: 0.01,
+      strokeWidth: STROKE_WIDTH,
     })
   });
   
