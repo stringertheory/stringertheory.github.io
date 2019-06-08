@@ -1,132 +1,91 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title> | Mike Stringer</title>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141143090-1"></script>
-        <script>
-         var ga_metrics = {
-             'metric1': 'n_x',
-             'metric2': 'n_y',
-             'metric3': 'n_colors',
-             'metric4': 'stroke_width',
-             'metric5': 'grid_jitter',
-         };
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
-         gtag('config', 'UA-141143090-1', {'custom_map': ga_metrics});
-         document.addEventListener('click', function (event) {
-             var url = event.target.href;
-             var host = event.target.host;
-             if (url && host && host !== window.location.host) {
-                 gtag('event', 'click', {
-                     'event_category': 'outbound',
-                     'event_label': url,
-                     'transport_type': 'beacon',
-                     'event_callback': function(){document.location = url;}
-                 });
-             }
-             return false;
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      October 6, 2018 sketch (wright) | Mike Stringer
+    </title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141143090-1"></script>
+    <script>
+    var ga_metrics = {
+     'metric1': 'n_x',
+     'metric2': 'n_y',
+     'metric3': 'n_colors',
+     'metric4': 'stroke_width',
+     'metric5': 'grid_jitter',
+    };
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-141143090-1', {'custom_map': ga_metrics});
+    document.addEventListener('click', function (event) {
+     var url = event.target.href;
+     var host = event.target.host;
+     if (url && host && host !== window.location.host) {
+         gtag('event', 'click', {
+             'event_category': 'outbound',
+             'event_label': url,
+             'transport_type': 'beacon',
+             'event_callback': function(){document.location = url;}
          });
-        </script>
+     }
+     return false;
+    });
+    </script>
+    <meta name="description" content="Generative sketch inspired by a Frank Lloyd Wright design">
+    <link type="text/css" rel="stylesheet" href="/static/build/main.ae64affb.css">
+    <link rel="stylesheet" href="/static/highlight/styles/github.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav>
+        <a href="/">Home</a> <a href="/about/">About</a>
+      </nav>
+      <section class="main">
+        <article>
+          <header>
+            <h1></h1>
+          </header>
+          <section class="body">
+            <svg id="canvas"></svg>
+            <div id="buttons">
+              <button onclick="window.location.hash = makeid(7)" class="button"><i class="fas fa-redo"></i> Regenerate</button> <button onclick="download()" class="button"><i class="fas fa-arrow-down"></i> Download</button>
+            </div>
+            <div id="parameters"></div>
+            <h2>
+              Notes
+            </h2>
+            <p>
+              Inspired by <a href="https://archinect.com/news/gallery/47637482/11/frank-lloyd-wright-s-lesser-known-contributions-to-graphic-design">a Frank Lloyd Wright design</a>, discovered courtesy of Brian Lange.
+            </p>
+          </section>
+        </article>
+      </section>
+      <footer>
+        <hr>
+        <p>
+          Questions or comments? Please <a href="mailto:mike.stringer.internet@gmail.com">email me</a> or tweet <a href="https://twitter.com/mstringer">@mstringer</a>. Thanks for visiting!
+        </p>
+      </footer>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/chroma-js/1.2.1/chroma.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.6.0/js/md5.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.0/seedrandom.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.js"></script> 
+    <script type="text/javascript" src="/static/build/main.d6c9fe09.js"></script>/static/js/sketches/wright.js 
+    <script src="/static/js/sketches/wright.js"></script>
+    <script>
 
-        <meta name="description" content="Generative sketch inspired by a Frank Lloyd Wright design" />
-
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Mike Stringer" />
-<meta property="og:title" content="" />
-<meta property="og:description" content="Generative sketch inspired by a Frank Lloyd Wright design" />
-<meta property="og:url" content="http://localhost/wright/" />
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@mstringer">
-<meta name="twitter:creator" content="@mstringer">
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="Generative sketch inspired by a Frank Lloyd Wright design">
-<meta name="twitter:image" content="http://localhost/static/img/mstringer.jpg">
-<meta property="og:image" content="http://localhost/static/img/mstringer.jpg" />
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "http://localhost/"
-  },
-  "headline": "",
-  "image": {
-    "@type": "ImageObject",
-    "url": "http://localhost/static/img/mstringer.jpg",
-    "height": 42,
-    "width": 696
-  },
-  "datePublished": "2018-10-06",
-  "dateModified": "2018-10-06",
-  "author": {
-    "@type": "Person",
-    "name": "Mike Stringer"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Mike Stringer",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "http://localhost/static/img/mstringer.jpg",
-      "width": 42,
-      "height": 60
-    }
-  },
-  "description": "Generative sketch inspired by a Frank Lloyd Wright design"
-}
-</script>
-
-        <link type="text/css" rel="stylesheet" href="/static/build/main.ae64affb.css">
-        <script type="text/javascript" src="/static/build/main.d6c9fe09.js"></script>
-        <link rel="stylesheet" href="/static/highlight/styles/github.css">
-        <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
-    </head>
-    <body>
-        <div class="wrapper">
-            <nav>
-                <a href="/">Home</a>
-                <a href="/about/">About</a>
-            </nav>
-            <section class="main">
-<article>
-    
-    <header>
-	<h1></h1>
-    </header>    
-    
-    <section class="body">
-<script src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
-<svg id="canvas"></svg>
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/chroma-js/1.2.1/chroma.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.6.0/js/md5.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.0/seedrandom.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.js"></script>
-<div id="buttons">
-    <button onclick="window.location.hash = makeid(7)" class="button"><i class="fas fa-redo"></i> Regenerate</button>
-    <button onclick="download()" class="button"><i class="fas fa-arrow-down"></i> Download</button>
-</div>
-<div id="parameters"></div> 
-        <script src="/static/js/sketches/wright.js"></script>
-
-<h2>Notes</h2>
-<p>Inspired by
-<a href="https://archinect.com/news/gallery/47637482/11/frank-lloyd-wright-s-lesser-known-contributions-to-graphic-design">a Frank Lloyd Wright design</a>,
-discovered courtesy of Brian Lange.</p>
-<script>
- function change_hash() {
+    function change_hash() {
      window.location.hash = makeid(7);
- }
- function hashy_mchashface() {
+    }
+    function hashy_mchashface() {
      regenerate();
      if (typeof gtag !== 'undefined') {
          // consider treating regenerated differently?
@@ -139,26 +98,15 @@ discovered courtesy of Brian Lange.</p>
          )
          gtag('event', 'sketch_generated', custom_metrics);
      }
- }
- document.addEventListener('DOMContentLoaded', function() {
+    }
+    document.addEventListener('DOMContentLoaded', function() {
      window.onhashchange = hashy_mchashface;
      if (window.location.hash == "") {
          window.location.hash = makeid(7);
      } else {
          onhashchange();
      }
- });
-</script> 
-    </section>
-</article>
-
-            </section>
-            <footer>
-                <hr>
-                <p>Questions or comments? Please <a href="mailto:mike.stringer.internet@gmail.com">email me</a> or tweet <a href="https://twitter.com/mstringer">@mstringer</a>. Thanks for visiting!</p>
-            </footer>
-        </div>
-        <script src="/static/highlight/highlight.pack.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
-    </body>
+    });
+    </script>
+  </body>
 </html>
