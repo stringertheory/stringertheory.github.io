@@ -1,7 +1,7 @@
 
 function setSeed() {
   // explicitly seed Math.random using hash
-  var seed = window.location.hash;
+  var seed = Qs.parse(window.location.hash)['#seed']
   if (seed) {
     console.log(seed);
     Math.seedrandom(seed)
@@ -142,13 +142,21 @@ function convertToPath(points) {
 
 
 function makeid(length) {
-  var result           = '';
+  var seed           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var charactersLength = characters.length;
   for ( var i = 0; i < length; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    seed += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
-  return result;
+  var components = {
+    'seed': seed
+  };
+  if (typeof parameters !== 'undefined') {
+    _.each(_.keys(parameters), function(key) {
+      components[key] = parameters[key].get();
+    });
+  }
+  return Qs.stringify(components);
 }
 
 function compliment(color, angle, lightness) {
@@ -167,8 +175,13 @@ function compliment(color, angle, lightness) {
 function make_parameters(div_id, parameter_list) {
   var parent_div = document.getElementById(div_id);
   var result = {}
+  var query_params = Qs.parse(window.location.hash);
   _.each(parameter_list, function (conf) {
     var name = conf.name;
+    if (name in query_params) {
+      conf['start'] = [query_params[name]];
+    }
+    console.log(conf);
     var parameter_div = document.createElement('div')
     parameter_div.classList.add('parameter')
     var slider = document.createElement('div')
@@ -180,7 +193,6 @@ function make_parameters(div_id, parameter_list) {
     sliderValue.classList.add('parameter-input')
     parameter_div.appendChild(sliderValue);
     parent_div.appendChild(parameter_div);
-    console.log(parent_div);
     noUiSlider.create(slider, conf);
     slider.noUiSlider.on('update', function (values, handle) {
       sliderValue.value = values[handle];
@@ -192,6 +204,8 @@ function make_parameters(div_id, parameter_list) {
   })
   return result;
 }
+
+//http://localhost:5000/amish-quilt/#seed=NtsW8DZ&n_x=11&n_y=11&n_colors=4&stroke_width=0.00&stroke_width_inner=0.00&grid_jitter=0.50
 
 function format_int () {
   return {
