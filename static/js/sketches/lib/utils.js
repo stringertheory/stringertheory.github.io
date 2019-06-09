@@ -181,12 +181,12 @@ function make_parameters(div_id, parameter_list) {
     if (name in query_params) {
       conf['start'] = [query_params[name]];
     }
-    console.log(conf);
     var parameter_div = document.createElement('div')
     parameter_div.classList.add('parameter')
     var slider = document.createElement('div')
     slider.id = "slider-" + name;
     slider.classList.add("parameter-slider")
+    slider.setAttribute('data-name', name.replace(/_/g, ' '));
     parameter_div.appendChild(slider);
     var sliderValue = document.createElement('input')
     sliderValue.id = "slider-" + name + '-value';
@@ -204,9 +204,7 @@ function make_parameters(div_id, parameter_list) {
   })
   return result;
 }
-
-//http://localhost:5000/amish-quilt/#seed=NtsW8DZ&n_x=11&n_y=11&n_colors=4&stroke_width=0.00&stroke_width_inner=0.00&grid_jitter=0.50
-
+//
 function format_int () {
   return {
     'to': function(value) {return parseInt(value)},
