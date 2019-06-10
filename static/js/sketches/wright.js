@@ -1,24 +1,27 @@
-// https://archinect.com/news/gallery/47637482/11/frank-lloyd-wright-s-lesser-known-contributions-to-graphic-design
+/* license for this code at /license.txt */
+
+/* global _, chroma, Snap, makeSVG */
+/* exported regenerate */
+
+/* A link showing the original inspiration: https://archinect.com/news/gallery/47637482/11/frank-lloyd-wright-s-lesser-known-contributions-to-graphic-design */
 
 function make_gridpoints(n_x, n_y) {
 
   var epsilon = 1 / 12;
-  
+
   var xs = [];
   var x = 0;
   while (x < (n_x - epsilon)) {
     xs.push(x);
     x += _.random(1, 6) / 6;
-  };
+  }
   
   var ys = [];
   var y = 0;
   while (y < (n_y - epsilon)) {
     ys.push(y);
     y += _.random(2, 12) / 6;
-  };
-
-  console.log(xs, ys)
+  }
   
   var gridpoints = [];
   _.each(xs, function(x, x_i) {
@@ -52,17 +55,17 @@ function make_gridpoints(n_x, n_y) {
   };
 }
 
-Snap.plugin(function(Snap, Element, Paper, global) {
+Snap.plugin(function(Snap, Element, Paper) {
   Paper.prototype.semicircle = function(cx, cy, r) {
-    var p = "M" + cx + "," + cy;
-    p += "m" + -r + ",0";
-    p += "a" + r + "," + r + " 0 1,0 " + (r*2) +",0 Z";
+    var p = 'M' + cx + ',' + cy;
+    p += 'm' + -r + ',0';
+    p += 'a' + r + ',' + r + ' 0 1,0 ' + (r*2) +',0 Z';
     return this.path(p, cx, cy);
   };
 });
 
 function regenerate () {
-  var SVG_ID = '#canvas'
+
   var N_X = 16;
   var N_Y = 9;
   var N_SQUARES = N_X + N_Y;
@@ -109,7 +112,7 @@ function regenerate () {
   var TEXTURE_OPACITY = 0.05;
 
   // make an svg with a viewbox
-  var s = makeSVG(N_X, N_Y)
+  var s = makeSVG(N_X, N_Y);
 
   var grid = make_gridpoints(N_X, N_Y);
   
@@ -132,21 +135,21 @@ function regenerate () {
       fillOpacity: GRID_OPACITY,
       stroke: STROKE_COLOR,
       strokeWidth: STROKE_WIDTH,
-    })
+    });
   });
 
   _.each(grid.xs, function(x) {
     s.line(x, 0, x, N_Y).attr({
       stroke: 'black',
       strokeWidth: STROKE_WIDTH,
-    })
+    });
   });
 
   _.each(grid.ys, function(y) {
     s.line(0, y, N_X, y).attr({
       stroke: 'black',
       strokeWidth: STROKE_WIDTH,
-    })
+    });
   });
   
   var circle_colors = [
@@ -154,8 +157,8 @@ function regenerate () {
     BLUE,
     PURPLE,
   ];
-  var clipper = s.rect(0, 0, N_X, N_Y)
-  var circle_group = s.g()
+  var clipper = s.rect(0, 0, N_X, N_Y);
+  var circle_group = s.g();
   var circle_list = [];
   _.each(grid.gridpoints, function(p) {
     if (Math.random() < CIRCLE_PROBABILITY) {
@@ -237,15 +240,15 @@ function regenerate () {
   var squares = [];
   var x = _.random(0, N_X - 1);
   var y = _.random(0, N_Y - 1);
-  _.each(_.range(N_SQUARES), function (i) {
+  _.each(_.range(N_SQUARES), function (dummy) {
     var base_color = _.sample(colors);
-    var scale = chroma.scale([BASE_COLOR, base_color]).colors(n_concentric)
+    var scale = chroma.scale([BASE_COLOR, base_color]).colors(n_concentric);
     squares.push({x: x, y: y, scale: scale});
     x += _.random(-2, 2);
     y += _.random(-2, 2);
     x = (x + N_X) % N_X;
     y = (y + N_Y) % N_Y;
-  })
+  });
 
   var n_x = 6;
   _.each(squares, function (square) {
@@ -313,13 +316,13 @@ function regenerate () {
         stroke: STROKE_COLOR,
         strokeWidth: STROKE_WIDTH,
         class: 'tail',
-      })
+      });
     });
     
     
   });
 
-  _.each(_.range(N_TEXTURE), function (i) {
+  _.each(_.range(N_TEXTURE), function (dummy) {
     var x = N_X * Math.random();
     var y = N_Y * Math.random();
     s.ellipse(

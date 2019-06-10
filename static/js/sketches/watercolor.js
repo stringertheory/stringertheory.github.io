@@ -1,3 +1,8 @@
+/* license for this code at /license.txt */
+
+/* global _, chroma, make_parameters, format_int, d3, paper */
+/* exported regenerate */
+
 function deform (polygon, nDeform, chunkiness, maskFraction) {
 
   // defaults: chunkiness of 1 starts getting *zany*, but 1.5 looks
@@ -24,14 +29,14 @@ function deform (polygon, nDeform, chunkiness, maskFraction) {
   );
 
   // each run through this loop subdivides every edge
-  _.each(_.range(nDeform), function (index) {
+  _.each(_.range(nDeform), function (dummy) {
 
     // start with the first curve in the polygon
     var curve = polygon.firstCurve;
-    _.each(_.range(polygon.curves.length), function (index) {
+    _.each(_.range(polygon.curves.length), function (dummy) {
 
       // add a new segment half way through (this returns the new curve)
-      var second = curve.divideAtTime(0.5)
+      var second = curve.divideAtTime(0.5);
 
       // determines how many standard deviations (in units of lengths
       // of the new segment) to jitter the new middle point
@@ -47,7 +52,7 @@ function deform (polygon, nDeform, chunkiness, maskFraction) {
 
     // make a bunch of circles in a group
     var circleGroup = new paper.Group();
-    _.each(_.range(maskFraction * maskFraction), function (index) {
+    _.each(_.range(maskFraction * maskFraction), function (dummy) {
       circleGroup.addChild(new paper.Path.Circle({
         center: [ux(), uy()],
         radius: radius,
@@ -81,11 +86,9 @@ function regenerate() {
   var blend = 'lighten';
   var nPoints = 5;
   var hiddenRadius = 125;
-
-  console.log('hr', hiddenRadius);
   
   var pointList = [];
-  _.each(_.range(1), function (i) {
+  _.each(_.range(1), function (dummy) {
     var x = 0.5 * paper.view.bounds.width * (1 - 2 * Math.random());
     var y = 0.5 * paper.view.bounds.height * (1 - 2 * Math.random());
     var p = new paper.Point(x, y);
@@ -100,12 +103,9 @@ function regenerate() {
       (0.25 * r * (1 + 3 * Math.random())) * Math.sin(angle)
     );
   });
-
-  console.log(pointList, paper.view.center);
   
   var basePolygons = _.map(pointList, function (offset) {
-    var radius = 2 * hiddenRadius * Math.sin(Math.PI / nPoints)
-    console.log('r', radius, paper.view.center);
+    var radius = 2 * hiddenRadius * Math.sin(Math.PI / nPoints);
     var result = new paper.Path.RegularPolygon({
       center: paper.view.center.add(offset),
       sides: nSides,
@@ -116,7 +116,7 @@ function regenerate() {
     });
     deform(result, 1, 1.5, 0.25);
     return result;
-  })
+  });
   
   _.each(_.range(nLayers * basePolygons.length), function (index) {
     var i = index % basePolygons.length;

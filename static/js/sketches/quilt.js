@@ -1,3 +1,9 @@
+/* license for this code at /license.txt */
+
+/* global _, chroma, Snap, makeSVG, make_parameters, jitter,
+   format_int, compliment */
+/* exported regenerate */
+
 var parameters = make_parameters('parameters', [
   {
     name: 'n_x',
@@ -35,15 +41,12 @@ var parameters = make_parameters('parameters', [
 // http://www.pbase.com/brownsf/image/12150606
 function rando() {
   var h = 360 * Math.random();
-  var c = 80 + 20 * Math.random()
-  var l = 80 + 20 * Math.random()
-  return chroma.hcl(h, c, l)
+  var c = 80 + 20 * Math.random();
+  var l = 80 + 20 * Math.random();
+  return chroma.hcl(h, c, l);
 }
 
 function regenerate () {
-
-  var slider = document.getElementById('slider-1');
-  var slider2 = document.getElementById('slider-2');
   
   var N_X = parameters['n_x'].get();
   var N_Y = parameters['n_y'].get();
@@ -53,88 +56,88 @@ function regenerate () {
   var GRID_JITTER = parameters['grid_jitter'].get();
   
   // make an svg with a viewbox
-  var s = makeSVG(N_X, N_Y)
+  var s = makeSVG(N_X, N_Y);
 
-  var color1 = rando()
+  var color1 = rando();
   var colors = [];
   colors.push(color1);
   _.each(_.range(1, N_COLORS), function (i) {
     var color = compliment(
       color1, i * 360 / N_COLORS,
       0.5 * (1 + Math.random())
-    ).hex()
+    ).hex();
     colors.push(color);
-  })
+  });
   // var colors = chroma.scale([color1, compliment(color1)]).colors(N_COLORS)
-  var stroker = colors[0]
+  var stroker = colors[0];
 
   s.rect(0, 0, N_X, N_Y).attr({
     fill: colors[0],
     stroke: 'none'
-  })
+  });
   
-  var grid = []
+  var grid = [];
   _.each(_.range(N_X + 1), function (x) {
-    var row = []
+    var row = [];
     _.each(_.range(N_Y + 1), function (y) {
       if (x > 0 && y > 0 && x < N_X && y < N_Y) {
-        row.push([x + jitter(GRID_JITTER), y + jitter(GRID_JITTER)])
+        row.push([x + jitter(GRID_JITTER), y + jitter(GRID_JITTER)]);
       } else {
-        row.push([x, y])
+        row.push([x, y]);
       }
-    })
-      grid.push(row)
-  })
+    });
+    grid.push(row);
+  });
   
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
 
-      colors = _.shuffle(colors)
+      colors = _.shuffle(colors);
       
-      var group = s.g()
+      var group = s.g();
       
       _.each(colors, function (color, index) {
-        var height = 2 * (colors.length - index) / colors.length
+        var height = 2 * (colors.length - index) / colors.length;
         group.add(s.rect(x - 0.5, y - 0.5, 2, height).attr({
           fill: color,
           stroke: stroker,
           strokeWidth: BOX_STROKE_WIDTH
-        }))
-      })
+        }));
+      });
       var path = [
         grid[x][y],
         grid[x + 1][y],
         grid[x + 1][y + 1],
         grid[x][y + 1]
-      ]
-      var clipper = s.polyline(path)
-      var blipper = s.polyline(path).attr({
+      ];
+      var clipper = s.polyline(path);
+      s.polyline(path).attr({
         fill: 'none',
         stroke: stroker,
         strokeWidth: STROKE_WIDTH
-      })
+      });
       if (Math.random() < 1) {
-        var angle = 360 * (Math.random() - 0.5)
+        var angle = 360 * (Math.random() - 0.5);
         group.transform(
           Snap.format('r{angle},{x_center},{y_center}', {
             angle: angle,
             x_center: x + 0.5,
             y_center: y + 0.5
           })
-        )
+        );
         clipper.transform(
           Snap.format('r{angle},{x_center},{y_center}', {
             angle: -angle,
             x_center: x + 0.5,
             y_center: y + 0.5
           })
-        )
+        );
       }
       group.attr({
         clip: clipper
-      })
-    })
-  })
+      });
+    });
+  });
 }
 
 

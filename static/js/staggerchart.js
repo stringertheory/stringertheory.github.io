@@ -1,3 +1,5 @@
+/* license for this code at /license.txt */
+
 // http://peterbeshai.com/scatterplot-in-d3-with-voronoi-interaction.html
 
 function getIndex(now, birthday) {

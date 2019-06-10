@@ -1,17 +1,23 @@
+/* license for this code at /license.txt */
+
+/* global _, chroma, makeSVG, make_parameters, format_int, convertToPath,
+   hsluv */
+/* exported regenerate */
+
 function make_line(s, cx, n) {
-  var points = []
-  var y = 0
+  var points = [];
+  var y = 0;
   _.each(_.range(n), function () {
-    var x = cx + 2 * Math.sin(y * Math.PI / 2)
-    points.push([x, y])
-    y += 1
-  })
-  var path = convertToPath(points)
-  var sig = s.path(path).attr({
+    var x = cx + 2 * Math.sin(y * Math.PI / 2);
+    points.push([x, y]);
+    y += 1;
+  });
+  var path = convertToPath(points);
+  s.path(path).attr({
     fill: 'none',
     stroke: 'black',
     strokeWidth: 0.05
-  })
+  });
 }
 
 function pick_avoid(array, avoid) {
@@ -41,7 +47,7 @@ function color_set(n) {
     var sat = 1;
     var v = 1;
     var color = chroma.hsv(h, sat, v);
-    result.push(color)
+    result.push(color);
   });
   return result;
 }
@@ -49,29 +55,6 @@ function color_set(n) {
 function luvcolor(h, s, l) {
   var rgb = hsluv.hsluvToRgb([h, s, l]);
   return chroma.rgb(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
-}
-
-function color_scheme_rune(n) {
-
-  var startHue = _.random(0, 360);
-  var startSat = _.random(40, 100);
-  var startLig = _.random(0, 60);
-
-  var changeHue = _.random(10, 120);
-  var changeSat = _.random(15, 40);
-  var changeLig = _.random(15, 40)
-
-  var colors = [];
-  _.each(_.range(n), function(i) {
-    colors.push(
-      luvcolor(
-        startHue + (i * changeHue),
-        startSat + (i * changeSat),
-        startLig + (i * changeLig)
-      )
-    )
-  });
-  return colors;
 }
 
 function color_scheme(n) {
@@ -83,22 +66,19 @@ function color_scheme(n) {
     diff = Math.abs(hue_b - hue_a);
   }
 
-  var diff = 0;
+  diff = 0;
   while (diff < 5) {
     var sat_a = _.random(90, 100);
-    var sat_b = _.random(90, 100)
+    var sat_b = _.random(90, 100);
     diff = Math.abs(sat_b - sat_a);
   }
 
-  var diff = 0;
+  diff = 0;
   while (diff < 50) {
     var lig_a = _.random(20, 80);
     var lig_b = _.random(20, 80);
     diff = Math.abs(lig_b - lig_a);
   }
-
-
-  console.log(hue_a, hue_b, sat_a, sat_b, lig_a, lig_b)
   
   var changeHue = (hue_b - hue_a) / n;
   var changeSat = (sat_b - sat_a) / n;
@@ -112,7 +92,7 @@ function color_scheme(n) {
         sat_a + (i * changeSat),
         lig_a + (i * changeLig)
       )
-    )
+    );
   });
   return colors;
 }
@@ -120,27 +100,19 @@ function color_scheme(n) {
 
 
 function regenerate() {
-  var SVG_ID = '#canvas'
-  var N_X = 10
-  var N_Y = 10
-  var STROKE_COLOR = 'black'
-  var STROKE_WIDTH = 0.02
-  var CIRCLE_STROKE_COLOR = 'black'
-  var CIRCLE_STROKE_WIDTH = 0.02
-  var P_CRISSCROSS = 0.15
-  var P_VERTICAL = 0.05
-  var P_CIRCLE = 0.1
+
+  var N_X = 10;
+  var N_Y = 10;
   var JITTER_AMOUNT = 0.5;
 
   var BORDER = 0.5;
-  var s = makeSVG(N_X, N_Y, BORDER)
+  var s = makeSVG(N_X, N_Y, BORDER);
 
   var bgColor = chroma.rgb(250, 245, 240);
   s.rect(-BORDER, -BORDER, N_X + 2*BORDER, N_Y + 2*BORDER).attr({
     stroke: 'none',
     fill: bgColor.hex()
-  })
-
+  });
   
   // var n = 36;
   // _.each(_.range(n), function (i) {
@@ -238,7 +210,7 @@ function regenerate() {
     // chroma.rgb(255, 182, 83),
     // chroma.rgb(25, 158, 189),
     // chroma.rgb(237, 237, 237),
-  ]
+  ];
 
   var color = null;
   var cx = N_X / 4;
@@ -257,10 +229,10 @@ function regenerate() {
       color = bgColor;
       s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
         fill: tweak(color).hex()
-      })
+      });
 
       var triWidth = 0.25 + 1.0 * Math.random();
-      var yy = y + i/ny
+      var yy = y + i/ny;
       if (Math.random() < 0.5) {
         yy = y + (i + 1)/ny;
       }
@@ -272,10 +244,10 @@ function regenerate() {
       if (Math.random() < 0.9) {
         s.polygon(trianglePoints).attr({
           fill: tweak(_.sample(colors)).hex()
-        })
+        });
       }
       var triWidth = 0.25 + 1.0 * Math.random();
-      var yy = y + i/ny
+      var yy = y + i/ny;
       if (Math.random() < 0.5) {
         yy = y + (i + 1)/ny;
       }
@@ -287,11 +259,11 @@ function regenerate() {
       if (Math.random() < 0.9) {
         s.polygon(trianglePoints).attr({
           fill: tweak(_.sample(colors)).hex()
-        })
+        });
       }
       
 
-    })
+    });
   });
 
   var cx = 3 * N_X / 4;
@@ -309,10 +281,10 @@ function regenerate() {
       color = bgColor;
       s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
         fill: tweak(color).hex()
-      })
+      });
 
       var triWidth = 0.25 + 1.0 * Math.random();
-      var yy = y + i/ny
+      var yy = y + i/ny;
       if (Math.random() < 0.5) {
         yy = y + (i + 1)/ny;
       }
@@ -324,10 +296,10 @@ function regenerate() {
       if (Math.random() < 0.9) {
         s.polygon(trianglePoints).attr({
           fill: tweak(_.sample(colors)).hex()
-        })
+        });
       }
       var triWidth = 0.25 + 1.0 * Math.random();
-      var yy = y + i/ny
+      var yy = y + i/ny;
       if (Math.random() < 0.5) {
         yy = y + (i + 1)/ny;
       }
@@ -339,11 +311,11 @@ function regenerate() {
       if (Math.random() < 0.9) {
         s.polygon(trianglePoints).attr({
           fill: tweak(_.sample(colors)).hex()
-        })
+        });
       }
       
 
-    })
+    });
   });
 
   var N_TEXTURE = 0;//30000;

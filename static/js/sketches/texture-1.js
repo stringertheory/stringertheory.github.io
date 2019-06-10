@@ -1,3 +1,9 @@
+/* license for this code at /license.txt */
+
+/* global _, chroma, Snap, makeSVG, make_parameters, jitter,
+   format_int, compliment */
+/* exported regenerate */
+
 
 
 // https://archinect.com/news/gallery/47637482/11/frank-lloyd-wright-s-lesser-known-contributions-to-graphic-design
@@ -9,14 +15,14 @@ function make_gridpoints(n_x, n_y) {
   while (x < n_x) {
     xs.push(x);
     x += _.random(1, 6) / 6;
-  };
+  }
   
   var ys = [];
   var y = 0;
   while (y < n_y) {
     ys.push(y);
     y += _.random(2, 12) / 6;
-  };
+  }
   
   var gridpoints = [];
   _.each(xs, function(x, x_i) {
@@ -44,24 +50,24 @@ function make_gridpoints(n_x, n_y) {
 
 Snap.plugin(function(Snap, Element, Paper, global) {
   Paper.prototype.semicircle = function(cx, cy, r) {
-    var p = "M" + cx + "," + cy;
-    p += "m" + -r + ",0";
-    p += "a" + r + "," + r + " 0 1,0 " + (r*2) +",0 Z";
+    var p = 'M' + cx + ',' + cy;
+    p += 'm' + -r + ',0';
+    p += 'a' + r + ',' + r + ' 0 1,0 ' + (r*2) +',0 Z';
     return this.path(p, cx, cy);
   };
 });
 
 function regenerate () {
-  var SVG_ID = '#canvas'
+  var SVG_ID = '#canvas';
   var N_X = 5;
   var N_Y = 5;
 
   // make an svg with a viewbox
-  var s = makeSVG(N_X, N_Y)
+  var s = makeSVG(N_X, N_Y);
   
   // most simple interpolation in HCL space
-  var a = chroma.interpolate("#383D41", "#EFEE69", 0.25, 'hcl').hex();
-  var b = chroma.interpolate("#383D41", "#EFEE69", 0.75, 'hcl').hex();
+  var a = chroma.interpolate('#383D41', '#EFEE69', 0.25, 'hcl').hex();
+  var b = chroma.interpolate('#383D41', '#EFEE69', 0.75, 'hcl').hex();
   // returns "#5C9A7C"
   
   // also, you can instantiate HCL colors directly
@@ -89,7 +95,7 @@ function regenerate () {
 
       s.rect(x, y, 1, 1).attr({
         fill: c,
-      })
+      });
 
       var g = s.g();
       _.each(_.range(n), function (i) {
@@ -99,7 +105,7 @@ function regenerate () {
         g.add(s.rect(x + rx, y + ry, size, size).attr({
           fill: b,
           stroke: 'none'
-        }))
+        }));
 
         var rx = (1 - size) * Math.pow(Math.random(), x_power);
         var ry = (1 - size) * Math.pow(Math.random(), y_power);
@@ -108,7 +114,7 @@ function regenerate () {
           // fill: 'white',
           fill: a,
           stroke: 'none'
-        }))
+        }));
 
         var rx = (1 - size) * Math.pow(Math.random(), x_power);
         var ry = (1 - size) * Math.pow(Math.random(), y_power);
@@ -117,7 +123,7 @@ function regenerate () {
           // fill: 'white',
           fill: e,
           stroke: 'none'
-        }))
+        }));
 
         var rx = (1 - size) * Math.pow(Math.random(), x_power);
         var ry = (1 - size) * Math.pow(Math.random(), y_power);
@@ -126,16 +132,16 @@ function regenerate () {
           // fill: 'white',
           fill: d,
           stroke: 'none'
-        }))
+        }));
         
       });
 
       var angle = _.sample([0, 90, 180, 270]);
       g.transform(Snap.format('r{angle},{x_center},{y_center}', {
-      	angle: angle,
-      	x_center: x + 0.5,
-      	y_center: y + 0.5
-      }))
+        angle: angle,
+        x_center: x + 0.5,
+        y_center: y + 0.5
+      }));
       
     });
   });

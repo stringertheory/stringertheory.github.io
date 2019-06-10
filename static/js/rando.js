@@ -1,3 +1,5 @@
+/* license for this code at /license.txt */
+
 // function hue_difference(a, b) {
 //   var h_a = a.hcl()[0];
 //   var h_b = b.hcl()[0];

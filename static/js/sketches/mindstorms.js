@@ -1,4 +1,7 @@
+/* license for this code at /license.txt */
 
+/* global _, chroma, Snap, makeSVG, compliment */
+/* exported regenerate */
 
 function randomInt(min, max) {
   min = Math.ceil(min);
@@ -7,8 +10,8 @@ function randomInt(min, max) {
 }
 
 function petal(svg, x, y, length, angle) {
-  var g = svg.g()
-  g.add(svg.path(Snap.format("M {x1} {y1} A {r} {r} 0 0 {sweep} {x2} {y2}", {
+  var g = svg.g();
+  g.add(svg.path(Snap.format('M {x1} {y1} A {r} {r} 0 0 {sweep} {x2} {y2}', {
     x1: x,
     y1: y,
     r: length / Math.sqrt(2),
@@ -16,7 +19,7 @@ function petal(svg, x, y, length, angle) {
     y2: y,
     sweep: 1
   })));
-  g.add(svg.path(Snap.format("M {x1} {y1} A {r} {r} 0 0 {sweep} {x2} {y2}", {
+  g.add(svg.path(Snap.format('M {x1} {y1} A {r} {r} 0 0 {sweep} {x2} {y2}', {
     x1: x,
     y1: y,
     r: length / Math.sqrt(2),
@@ -67,14 +70,13 @@ function overlap (shapes, x, y, n, max) {
 
 function regenerate () {
 
-  var SVG_ID = '#canvas'
-  var N_X = 9
-  var N_Y = 9
+  var N_X = 9;
+  var N_Y = 9;
   var N_FLOWERS = 42;
   var MAX_TRIES = 0;
   
   // make an svg with a viewbox
-  var s = makeSVG(N_X, N_Y)
+  var s = makeSVG(N_X, N_Y);
 
   var base_color = chroma.random();
   var flowers = [];

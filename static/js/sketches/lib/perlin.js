@@ -1,3 +1,5 @@
+/* license for this code at /license.txt */
+
 /*
  * A speed-improved perlin and simplex noise algorithms for 2D.
  *

@@ -1,16 +1,22 @@
+/* license for this code at /license.txt */
+
+/* global _, chroma, Snap, makeSVG, make_parameters, jitter,
+   format_int, compliment */
+/* exported regenerate */
+
 
 
 // https://archinect.com/news/gallery/47637482/11/frank-lloyd-wright-s-lesser-known-contributions-to-graphic-design
 
 function get_tail_length(x, y, max_y, squares) {
 
-  var same_ys = []
-  _.each(_.filter(squares, function (s) {return s.x == x}), function (s) {
+  var same_ys = [];
+  _.each(_.filter(squares, function (s) {return s.x == x;}), function (s) {
     same_ys.push(s.y);
-  })
+  });
   same_ys = same_ys.sort();
   same_ys.push(max_y);
-  same_ys = _.filter(same_ys, function (s) {return s > y});
+  same_ys = _.filter(same_ys, function (s) {return s > y;});
   var next_y = same_ys[0];
   var max_length = Math.max(next_y - y - 2, 0);
   console.log(max_length);
@@ -26,14 +32,14 @@ function make_gridpoints(n_x, n_y) {
   while (x < (n_x - epsilon)) {
     xs.push(x);
     x += _.random(1, 6) / 6;
-  };
+  }
   
   var ys = [];
   var y = 0;
   while (y < (n_y - epsilon)) {
     ys.push(y);
     y += _.random(2, 12) / 6;
-  };
+  }
 
   xs.push(n_x);
   ys.push(n_y);
@@ -75,51 +81,51 @@ function make_gridpoints(n_x, n_y) {
 Snap.plugin(function(Snap, Element, Paper, global) {
 
   Paper.prototype.semicircle = function(cx, cy, r) {
-    var p = "M" + cx + "," + cy;
-    p += "m" + -r + ",0";
-    p += "a" + r + "," + r + " 0 1,0 " + (r*2) +",0";
+    var p = 'M' + cx + ',' + cy;
+    p += 'm' + -r + ',0';
+    p += 'a' + r + ',' + r + ' 0 1,0 ' + (r*2) +',0';
     return this.path(p);
   };
 
   Paper.prototype.tailpath = function(x1, y1, x2, y2) {
     var r = (x2 - x1) / 2;
-    var p = "";
-    p += "M" + x1 + "," + y1;
-    p += "L" + x1 + "," + y2;
-    p += "a" +  r + "," +  r + " 0 1,0 " + (r * 2) +",0";
-    p += "L" + x2 + "," + y1;
+    var p = '';
+    p += 'M' + x1 + ',' + y1;
+    p += 'L' + x1 + ',' + y2;
+    p += 'a' +  r + ',' +  r + ' 0 1,0 ' + (r * 2) +',0';
+    p += 'L' + x2 + ',' + y1;
     return this.path(p);
   };
   
   Paper.prototype.pathcircle = function(cx, cy, r) {
-    var p = "M" + cx + "," + cy;
-    p += "m" + -r + ",0";
-    p += "a" + r + "," + r + " 0 1,0 " + (r * 2) +",0";
-    p += "a" + r + "," + r + " 0 1,0 " + -(r * 2) +",0 Z";
+    var p = 'M' + cx + ',' + cy;
+    p += 'm' + -r + ',0';
+    p += 'a' + r + ',' + r + ' 0 1,0 ' + (r * 2) +',0';
+    p += 'a' + r + ',' + r + ' 0 1,0 ' + -(r * 2) +',0 Z';
     return this.path(p);
   };
   
   Paper.prototype.pathline = function(x1, y1, x2, y2) {
-    var p = "M" + x1 + "," + y1;
-    p += "L" + x2 + "," + y2;
+    var p = 'M' + x1 + ',' + y1;
+    p += 'L' + x2 + ',' + y2;
     return this.path(p);
   };
 
   Paper.prototype.pathrect = function(x1, y1, width, height) {
     var x2 = x1 + width;
     var y2 = y1 + height;
-    var p = "M" + x1 + "," + y1;
-    p += "L" + x2 + "," + y1;
-    p += "L" + x2 + "," + y2;
-    p += "L" + x1 + "," + y2;
-    p += "Z";
+    var p = 'M' + x1 + ',' + y1;
+    p += 'L' + x2 + ',' + y1;
+    p += 'L' + x2 + ',' + y2;
+    p += 'L' + x1 + ',' + y2;
+    p += 'Z';
     return this.path(p);
   };
   
 });
 
 function regenerate () {
-  var SVG_ID = '#canvas'
+  var SVG_ID = '#canvas';
   var N_X = 13;
   var N_Y = 13;
   var N_SQUARES = Math.ceil((N_X + N_Y) / 2);
@@ -175,7 +181,7 @@ function regenerate () {
   var TEXTURE_OPACITY = 0.05;
 
   // make an svg with a viewbox
-  var s = makeSVG(N_X, N_Y)
+  var s = makeSVG(N_X, N_Y);
 
   // Sets Math.random to a PRNG initialized using the given explicit seed.
   // var seed = 1;
@@ -189,7 +195,7 @@ function regenerate () {
       stroke: STROKE_COLOR,
       strokeWidth: STROKE_WIDTH,
       class: 'x-line'
-    })
+    });
     x_lines.push(line);
   });
 
@@ -228,7 +234,7 @@ function regenerate () {
     y += _.random(-N_JUMP, N_JUMP);
     x = (x + N_X) % N_X;
     y = (y + N_Y) % N_Y;
-  })
+  });
 
   var unique_squares = _.unique(squares, function (s) {return s.x+','+s.y;});
   console.log(unique_squares);
@@ -306,7 +312,7 @@ function regenerate () {
         stroke: STROKE_COLOR,
         strokeWidth: STROKE_WIDTH,
         class: 'tail tail-square',
-      })
+      });
     });
     
     

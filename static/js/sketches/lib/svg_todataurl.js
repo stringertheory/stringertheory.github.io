@@ -1,3 +1,5 @@
+/* license for this code at /license.txt */
+
 /**
 	The missing SVG.toDataURL library for your SVG elements.
 	

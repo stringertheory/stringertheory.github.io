@@ -1,12 +1,16 @@
+/* license for this code at /license.txt */
+
+/* global _, Qs, Snap, noUiSlider, chroma, md5 */
+/* exported makeSVG, download, jitter, convertToPath, makeid, compliment,
+   make_parameters, format_int */
 
 function setSeed() {
   // explicitly seed Math.random using hash
-  var seed = Qs.parse(window.location.hash)['#seed']
+  var seed = Qs.parse(window.location.hash)['#seed'];
   if (seed) {
-    console.log(seed);
-    Math.seedrandom(seed)
+    Math.seedrandom(seed);
   } else {
-    Math.seedrandom()
+    Math.seedrandom();
   }
 }
 
@@ -16,8 +20,8 @@ function makeSVG(n_x, n_y, border=0) {
   
   setSeed();
   
-  var s = Snap('#canvas')
-  s.clear()
+  var s = Snap('#canvas');
+  s.clear();
   s.attr({
     width: WIDTH,
     viewBox: Snap.format('{min_x} {min_y} {width} {height}', {
@@ -28,8 +32,8 @@ function makeSVG(n_x, n_y, border=0) {
     }),
     // transform: "scale(1,0.333)",
     // transform: "rotate(180)"
-  })
-  var g = s.group()
+  });
+  var g = s.group();
   // g.rect(-1, -1, n_x + 2, n_y + 2).attr({
   //   // fill: chroma.hcl(90, 1, 100),
   //   // fill: chroma.hcl(135, 10, 10),
@@ -43,7 +47,7 @@ function makeSVG(n_x, n_y, border=0) {
   //     y_center: n_y / 2
   //   })
   // )
-  return g
+  return g;
 }
 
 function dataURItoBlob(dataURI) {
@@ -53,7 +57,7 @@ function dataURItoBlob(dataURI) {
   var byteString = atob(dataURI.split(',')[1]);
 
   // separate out the mime component
-  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
   // write the bytes of the string to an ArrayBuffer
   var ab = new ArrayBuffer(byteString.length);
@@ -68,15 +72,16 @@ function dataURItoBlob(dataURI) {
 }
 
 function download_svg(svg) {
-  svg.toDataURL("image/png", {
+  svg.toDataURL('image/png', {
     callback : function(data) {
-      var image = data.replace("image/png", "image/octet-stream");
+      var image = data.replace('image/png', 'image/octet-stream');
       
-      var hash_pre = md5(image)
-      var hash = hash_pre.substring(0, 6)
-      var filename = window.location.pathname + window.location.hash + '-' + hash;
-      var png_filename = filename + ".png";
-      var svg_filename = filename + ".svg";
+      var hash_pre = md5(image);
+      var hash = hash_pre.substring(0, 6);
+      var filename =
+          window.location.pathname + window.location.hash + '-' + hash;
+      var png_filename = filename + '.png';
+      var svg_filename = filename + '.svg';
 
       var blob = dataURItoBlob(image);
       var blobUrl = URL.createObjectURL(blob);
@@ -92,7 +97,7 @@ function download_svg(svg) {
 
 function download(element_id='#canvas') {
   if (element_id[0] === '#') {
-    var element_id = element_id.split('#')[1];
+    element_id = element_id.split('#')[1];
   }
   var element = document.getElementById(element_id);
   if (element.nodeName == 'svg') {
@@ -100,15 +105,15 @@ function download(element_id='#canvas') {
   } else if (element.nodeName == 'CANVAS') {
     download_canvas(element);
   } else {
-    console.log('unknown element', element.nodeName);
+    console.error('unknown element', element.nodeName);
   }
 }
 
 function download_canvas(canvas) {
-  var hash_pre = md5(canvas)
-  var hash = hash_pre.substring(0, 6)
+  var hash_pre = md5(canvas);
+  var hash = hash_pre.substring(0, 6);
   var filename = window.location.pathname + window.location.hash + '-' + hash;
-  var png_filename = filename + ".png";
+  var png_filename = filename + '.png';
   download_as_file(png_filename, canvas.toDataURL());
 }
 
@@ -127,35 +132,39 @@ function jitter(amount) {
 function convertToPath(points) {
   var path = '';
   _.each(points, function (point, index) {
-    var x = point[0]
-    var y = point[1]
+    var x = point[0];
+    var y = point[1];
     if (index === 0) {
-      path += 'M' + x + ',' + y + ' R'
+      path += 'M' + x + ',' + y + ' R';
     } else if (index === points.length - 1) {
-      path += x + ',' + y
+      path += x + ',' + y;
     } else {
-      path += x + ',' + y + ','
+      path += x + ',' + y + ',';
     }
-  })
+  });
   return path;
 }
 
 
 function makeid(length) {
-  var seed           = '';
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  characters    += 'abcdefghijklmnopqrstuvwxyz';
+  characters += '0123456789';
   var charactersLength = characters.length;
+  var seed = '';
   for ( var i = 0; i < length; i++ ) {
     seed += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   var components = {
     'seed': seed
   };
+  /* eslint-disable no-undef */
   if (typeof parameters !== 'undefined') {
     _.each(_.keys(parameters), function(key) {
       components[key] = parameters[key].get();
     });
   }
+  /* eslint-enable no-undef */
   return Qs.stringify(components);
 }
 
@@ -174,23 +183,23 @@ function compliment(color, angle, lightness) {
 
 function make_parameters(div_id, parameter_list) {
   var parent_div = document.getElementById(div_id);
-  var result = {}
+  var result = {};
   var query_params = Qs.parse(window.location.hash);
   _.each(parameter_list, function (conf) {
     var name = conf.name;
     if (name in query_params) {
       conf['start'] = [query_params[name]];
     }
-    var parameter_div = document.createElement('div')
-    parameter_div.classList.add('parameter')
-    var slider = document.createElement('div')
-    slider.id = "slider-" + name;
-    slider.classList.add("parameter-slider")
+    var parameter_div = document.createElement('div');
+    parameter_div.classList.add('parameter');
+    var slider = document.createElement('div');
+    slider.id = 'slider-' + name;
+    slider.classList.add('parameter-slider');
     slider.setAttribute('data-name', name.replace(/_/g, ' '));
     parameter_div.appendChild(slider);
-    var sliderValue = document.createElement('input')
-    sliderValue.id = "slider-" + name + '-value';
-    sliderValue.classList.add('parameter-input')
+    var sliderValue = document.createElement('input');
+    sliderValue.id = 'slider-' + name + '-value';
+    sliderValue.classList.add('parameter-input');
     parameter_div.appendChild(sliderValue);
     parent_div.appendChild(parameter_div);
     noUiSlider.create(slider, conf);
@@ -201,13 +210,13 @@ function make_parameters(div_id, parameter_list) {
       slider.noUiSlider.set(this.value);
     });
     result[name] = slider.noUiSlider;
-  })
+  });
   return result;
 }
 //
 function format_int () {
   return {
-    'to': function(value) {return parseInt(value)},
-    'from': function(value) {return parseInt(value)}
-  }
-};
+    'to': function(value) {return parseInt(value);},
+    'from': function(value) {return parseInt(value);}
+  };
+}

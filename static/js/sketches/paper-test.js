@@ -1,3 +1,8 @@
+/* license for this code at /license.txt */
+
+/* global _, view */
+/* exported regenerate */
+
 var width = 1000;
 var height = 1000;
 var padding = 1;
