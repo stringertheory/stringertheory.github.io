@@ -161,7 +161,7 @@ function makeid(length) {
   /* eslint-disable no-undef */
   if (typeof parameters !== 'undefined') {
     _.each(_.keys(parameters), function(key) {
-      components[key] = parameters[key].get();
+      components[key] = parameters[key].slider.get();
     });
   }
   /* eslint-enable no-undef */
@@ -209,7 +209,11 @@ function make_parameters(div_id, parameter_list) {
     sliderValue.addEventListener('change', function () {
       slider.noUiSlider.set(this.value);
     });
-    result[name] = slider.noUiSlider;
+    var metric_name = conf.metric_name || conf.name;
+    result[name] = {
+      slider: slider.noUiSlider,
+      metric_name: metric_name
+    };
   });
   return result;
 }

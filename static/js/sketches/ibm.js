@@ -21,8 +21,8 @@ var parameters = make_parameters('parameters', [
 
 function regenerate () {
 
-  var N_X = parameters['n_x'].get();
-  var N_Y = parameters['n_y'].get();
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
   var WHITE = '#ffffff';
   var BORDER = 0.5;
 

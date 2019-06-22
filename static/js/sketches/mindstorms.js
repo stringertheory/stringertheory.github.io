@@ -1,7 +1,23 @@
 /* license for this code at /license.txt */
 
-/* global _, chroma, Snap, makeSVG, compliment */
+/* global _, chroma, Snap, makeSVG, compliment, make_parameters, format_int */
 /* exported regenerate */
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_flowers',
+    start: [42],
+    range: {'min': 1, 'max': 100},
+    format: format_int(),
+    metric_name: 'n_objects'
+  }, {
+    name: 'n_colors',
+    start: [3],
+    range: {'min': 1, 'max': 10},
+    format: format_int()
+  }
+]);
+
 
 function randomInt(min, max) {
   min = Math.ceil(min);
@@ -72,13 +88,19 @@ function regenerate () {
 
   var N_X = 9;
   var N_Y = 9;
-  var N_FLOWERS = 42;
+  var N_FLOWERS = parameters['n_flowers'].slider.get();
   var MAX_TRIES = 0;
+  var N_COLORS = parameters['n_colors'].slider.get();
   
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y);
 
   var base_color = chroma.random();
+  var colors = [base_color.hex()];
+  _.each(_.range(N_COLORS - 1), function (i) {
+    colors.push(compliment(base_color, (i + 1) * (90 / (N_COLORS - 1))).hex());
+  });
+  
   var flowers = [];
   var nFlowers = 0;
   while (nFlowers < N_FLOWERS) {
@@ -92,13 +114,7 @@ function regenerate () {
     var angleOffset = Math.random() * 2 * Math.PI;
     var nPetals = randomInt(5, 13);
     var radius = 0.25 + 0.75 * Math.random();
-    var r = Math.random();
-    var color = base_color;
-    if (r < 1/3) {
-      color = compliment(base_color, 45).hex();
-    } else if (r < 2/3) {
-      color = compliment(base_color, 90).hex();
-    }
+    var color = colors[_.random(N_COLORS - 1)];
     flowers.push(flower(s, x, y, radius, color, nPetals, angleOffset));
     nFlowers += 1;
   }

@@ -28,6 +28,7 @@ var parameters = make_parameters('parameters', [
     name: 'stroke_width_inner',
     start: [0],
     range: {'min': 0, 'max': 0.2},
+    metric_name: 'stroke_width_2'
   }, {
     name: 'grid_jitter',
     start: [0.5],
@@ -48,12 +49,12 @@ function rando() {
 
 function regenerate () {
   
-  var N_X = parameters['n_x'].get();
-  var N_Y = parameters['n_y'].get();
-  var N_COLORS = parameters['n_colors'].get();
-  var STROKE_WIDTH = parameters['stroke_width'].get();
-  var BOX_STROKE_WIDTH = parameters['stroke_width_inner'].get();
-  var GRID_JITTER = parameters['grid_jitter'].get();
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
+  var N_COLORS = parameters['n_colors'].slider.get();
+  var STROKE_WIDTH = parameters['stroke_width'].slider.get();
+  var BOX_STROKE_WIDTH = parameters['stroke_width_inner'].slider.get();
+  var GRID_JITTER = parameters['grid_jitter'].slider.get();
   
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y);

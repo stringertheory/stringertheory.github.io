@@ -1,9 +1,34 @@
 /* license for this code at /license.txt */
 
-/* global _, chroma, Snap, makeSVG */
+/* global _, chroma, Snap, makeSVG, make_parameters, format_int */
 /* exported regenerate */
 
 /* A link showing the original inspiration: https://archinect.com/news/gallery/47637482/11/frank-lloyd-wright-s-lesser-known-contributions-to-graphic-design */
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [16],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [9],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'n_objects',
+    start: [16 + 9],
+    range: {'min': 0, 'max': 100},
+    format: format_int()
+  }, {
+    name: 'n_texture',
+    start: [0],
+    range: {'min': 0, 'max': 5000},
+    format: format_int()
+  }
+]);
+
 
 function make_gridpoints(n_x, n_y) {
 
@@ -66,9 +91,9 @@ Snap.plugin(function(Snap, Element, Paper) {
 
 function regenerate () {
 
-  var N_X = 16;
-  var N_Y = 9;
-  var N_SQUARES = N_X + N_Y;
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
+  var N_SQUARES = parameters['n_objects'].slider.get();
 
   var BASE_COLOR = chroma.rgb(223,188,130);
   var RED = chroma.rgb(166,90,42);
@@ -105,7 +130,7 @@ function regenerate () {
   var CIRCLE_PROBABILITY = 0.1;
   var TAIL_OPACITY = 5/6;
 
-  var N_TEXTURE = 0;//3000;
+  var N_TEXTURE = parameters['n_texture'].slider.get();
   var TEXTURE_COLOR = BASE_COLOR.brighten(2);
   var TEXTURE_WIDTH = 0.05;
   var TEXTURE_HEIGHT = 0.9;

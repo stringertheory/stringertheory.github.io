@@ -63,8 +63,8 @@ function mouthline(x0, y0, width, height, n_points, jitter) {
 
 function regenerate() {
 
-  var N_X = parameters['n_x'].get();
-  var N_Y = parameters['n_y'].get();
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
   var N_POINTS = 36 * 2;
   var STROKE_WIDTH = 0.03;
   var STROKE_COLOR = 'black';

@@ -8,12 +8,14 @@ var parameters = make_parameters('parameters', [
     name: 'n_inside',
     start: [11],
     range: {'min': 1, 'max': 42},
-    format: format_int()
+    format: format_int(),
+    metric_name: 'n_x'
   }, {
     name: 'n_outside',
     start: [7],
     range: {'min': 1, 'max': 42},
-    format: format_int()
+    format: format_int(),
+    metric_name: 'n_y'
   }
 ]);
 
@@ -32,8 +34,8 @@ function regenerate () {
   var N_X = 4;
   var N_Y = 4;
   var N_POINTS = FACE.length;
-  var N_INSIDE = parameters['n_inside'].get();
-  var N_OUTSIDE = parameters['n_outside'].get();
+  var N_INSIDE = parameters['n_inside'].slider.get();
+  var N_OUTSIDE = parameters['n_outside'].slider.get();
   var STROKE_WIDTH = 0.01;
   
   var BORDER = 0.5;
