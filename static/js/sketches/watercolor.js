@@ -1,7 +1,30 @@
 /* license for this code at /license.txt */
 
-/* global _, chroma, make_parameters, format_int, d3, paper */
+/* global _, chroma, make_parameters, format_int, d3, paper, setSeed */
 /* exported regenerate */
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_shapes',
+    start: [5],
+    range: {'min': 2, 'max': 20},
+    format: format_int(),
+    metric_name: 'n_objects'
+  }, {
+    name: 'n_layers',
+    start: [42],
+    range: {'min': 1, 'max': 50},
+    format: format_int(),
+    metric_name: 'n_x'
+  }, {
+    name: 'n_sides',
+    start: [7],
+    range: {'min': 3, 'max': 30},
+    format: format_int(),
+    metric_name: 'n_y'
+  }
+]);
+
 
 function deform (polygon, nDeform, chunkiness, maskFraction) {
 
@@ -78,34 +101,27 @@ function regenerate() {
   var canvas = document.getElementById('canvas');
   paper.setup(canvas);
   
-  // setSeed()
+  setSeed();
   
-  var nLayers = 42;
-  var nSides = 7;
+  var nLayers = parameters['n_layers'].slider.get();
+  var nSides = parameters['n_sides'].slider.get();
   var opacity = 1 / (nLayers + 1);
   var blend = 'lighten';
-  var nPoints = 5;
+  var nPoints = parameters['n_shapes'].slider.get();
   var hiddenRadius = 125;
   
-  var pointList = [];
-  _.each(_.range(1), function (dummy) {
-    var x = 0.5 * paper.view.bounds.width * (1 - 2 * Math.random());
-    var y = 0.5 * paper.view.bounds.height * (1 - 2 * Math.random());
-    var p = new paper.Point(x, y);
-    pointList.push(p);
-  });
-
   var pointList = _.map(_.range(nPoints), function (i) {
     var angle = i * (2 * Math.PI / nPoints);
-    var r = 2 * Math.PI * hiddenRadius / nPoints;
+    var r = 2 * Math.PI * hiddenRadius;
     return new paper.Point(
-      (0.25 * r * (1 + 3 * Math.random())) * Math.cos(angle),
-      (0.25 * r * (1 + 3 * Math.random())) * Math.sin(angle)
+      (0.25 * r * (1 + (Math.random() - 0.5)) * Math.cos(angle) + 0),
+      (0.25 * r * (1 + (Math.random() - 0.5)) * Math.sin(angle) + 0)
     );
   });
   
   var basePolygons = _.map(pointList, function (offset) {
-    var radius = 2 * hiddenRadius * Math.sin(Math.PI / nPoints);
+    var multiplier = 1 + (nPoints - 2) / 15;
+    var radius = multiplier * 2 * hiddenRadius * Math.sin(Math.PI / nPoints);
     var result = new paper.Path.RegularPolygon({
       center: paper.view.center.add(offset),
       sides: nSides,
