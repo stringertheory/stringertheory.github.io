@@ -1,7 +1,24 @@
 /* license for this code at /license.txt */
 
-/* global _, chroma, Snap, makeSVG */
+/* global _, chroma, Snap, makeSVG, make_parameters, format_int,
+   convertToPath */
 /* exported regenerate */
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_circles',
+    start: [21],
+    range: {
+      'min': 0,
+      '25%': 20,
+      '50%': 50,
+      '75%': 200,
+      'max': 500
+    },
+    format: format_int(),
+    metric_name: 'n_objects'
+  }
+]);
 
 function randomColor() {
   var h = 360 * Math.random();
@@ -14,6 +31,7 @@ function regenerate () {
 
   var N_X = 40;
   var N_Y = N_X * 1.33; //(Math.sqrt(5) + 1) / 2
+  var N_CIRCLES = parameters['n_circles'].slider.get();
   
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y);
@@ -49,7 +67,12 @@ function regenerate () {
   textGroup.add(s.text(xText + 6, yText, text).attr(textAttributes));
   var maxRadius = 2;
   var textBBox = textGroup.getBBox();
-  var textBacker = s.rect(textBBox.x - 2 * maxRadius, textBBox.y - 2 * maxRadius, textBBox.width + 4 * maxRadius, textBBox.height + 4 * maxRadius).attr({
+  var textBacker = s.rect(
+    textBBox.x - 2 * maxRadius,
+    textBBox.y - 2 * maxRadius,
+    textBBox.width + 4 * maxRadius,
+    textBBox.height + 4 * maxRadius
+  ).attr({
     fill: 'none',
     stroke: 'none',
     strokeWidth: 0.5
@@ -82,7 +105,6 @@ function regenerate () {
     strokeWidth: 0.05
   });
   
-  var N_CIRCLES = 21;
   var n_circles = 0;
   while (n_circles < N_CIRCLES) {
     var color = randomColor();

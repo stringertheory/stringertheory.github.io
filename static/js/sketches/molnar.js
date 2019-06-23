@@ -3,6 +3,37 @@
 /* global _, chroma, Snap, makeSVG */
 /* exported regenerate */
 
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [47],
+    range: {'min': 7, 'max': 70},
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [47],
+    range: {'min': 7, 'max': 70},
+    format: format_int()
+  }, {
+    name: 'stroke_width',
+    start: [0.07],
+    range: {
+      'min': 0.005,
+      '50%': 0.07,
+      'max': 0.42
+    },
+    format: format_decimal()
+  }, {
+    name: 'n_holes',
+    start: [9],
+    range: {'min': 0, 'max': 42},
+    format: format_int(),
+    metric_name: 'n_objects'
+  },
+]);
+
+
+
 function calculateHoleP (holes, x, y) {
   var result = 0;
   _.each(holes, function (hole) {
@@ -19,15 +50,15 @@ function regenerate () {
 
   // var seed = 4697;
 
-  var N_X = 47;
-  var N_Y = 47;
-  var STROKE_WIDTH = 0.07;
-  var N_HOLES = 9;
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
+  var STROKE_WIDTH = parameters['stroke_width'].slider.get();
+  var N_HOLES = parameters['n_holes'].slider.get();
   var MIN_R = 1;
   var MAX_R = 6;
-  // var BACKGROUND_COLOR = Snap.rgb()
   var BACKGROUND_COLOR = chroma.hcl(90, 1, 99);
-
+  var SHOW_POTENTIAL = false;
+  var SHOW_NUMBERS = false;
   var BORDER = 2;
 
   var s = makeSVG(N_X, N_Y, BORDER);
@@ -46,60 +77,61 @@ function regenerate () {
     ]);
   });
 
-  // var colors = [
-  //   Snap.rgb(255, 100, 0),
-  //   Snap.rgb(0, 100, 255),
-  // ];
-  // var textAttributes = {
-  //   fill: Snap.rgb(125, 125, 125),
-  //   'font-size': 0.6,
-  //   'font-family': 'Helvetica Neue',
-  //   'text-anchor': 'middle',
-  //   'alignment-baseline': 'middle'
+  if (SHOW_NUMBERS) {
+    var colors = [
+      Snap.rgb(255, 100, 0),
+      Snap.rgb(0, 100, 255),
+    ];
+    var textAttributes = {
+      fill: Snap.rgb(125, 125, 125),
+      'font-size': 0.6,
+      'font-family': 'Helvetica Neue',
+      'text-anchor': 'middle',
+      'alignment-baseline': 'middle'
+    };
+    _.each(_.range(N_Y), function (y) {
+      s.line(0, y + 0.5, N_X, y + 0.5).attr({
+        'stroke': colors[y % 2],
+        'strokeWidth': 0.01
+      });
+      s.text(-0.5, y + 0.5, "" + y).attr(textAttributes).attr({
+        fill: colors[y % 2]
+      });
+      s.text(N_X + 0.5, y + 0.5, "" + y).attr(textAttributes).attr({
+        fill: colors[y % 2]
+      });
+    });
+    _.each(_.range(N_X), function (x) {
+      s.line(x + 0.5, 0, x + 0.5, N_Y).attr({
+        'stroke': colors[x % 2],
+        'strokeWidth': 0.01
+      });
+      s.text(x + 0.5, -0.5, "" + x).attr(textAttributes).attr({
+        fill: colors[x % 2]
+      });
+      s.text(x + 0.5, N_Y + 0.5, "" + x).attr(textAttributes).attr({
+        fill: colors[x % 2]
+      });
+    });
+  }
   
-  // };
-  // _.each(_.range(N_Y), function (y) {
-  //   s.line(0, y + 0.5, N_X, y + 0.5).attr({
-  //     'stroke': colors[y % 2],
-  //     'strokeWidth': 0.01
-  //   });
-  //   s.text(-0.5, y + 0.5, "" + y).attr(textAttributes).attr({
-  //     fill: colors[y % 2]
-  //   });
-  //   s.text(N_X + 0.5, y + 0.5, "" + y).attr(textAttributes).attr({
-  //     fill: colors[y % 2]
-  //   });
-  // });
-  // _.each(_.range(N_X), function (x) {
-  //   s.line(x + 0.5, 0, x + 0.5, N_Y).attr({
-  //     'stroke': colors[x % 2],
-  //     'strokeWidth': 0.01
-  //   });
-  //   s.text(x + 0.5, -0.5, "" + x).attr(textAttributes).attr({
-  //     fill: colors[x % 2]
-  //   });
-  //   s.text(x + 0.5, N_Y + 0.5, "" + x).attr(textAttributes).attr({
-  //     fill: colors[x % 2]
-  //   });
-  // });
-  
-  // var n_points = 0;
-  // var rect_group = s.g();
+  var rect_group = s.g();
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
       var p = calculateHoleP(holes, x, y);
-      // var color = 255 - Math.min(255, 255 * p);
-      // var rect = rect_group.add(s.rect(x, y, 1, 1).attr({
-      //        stroke: 'none',
-      //        fill: Snap.rgb(color, 255, 255),
-      //   strokeWidth: 0.01
-      // }));
+      if (SHOW_POTENTIAL) {
+        var color = 255 - Math.min(255, 255 * p);
+        var rect = rect_group.add(s.rect(x, y, 1, 1).attr({
+          stroke: 'none',
+          fill: Snap.rgb(color, 255, 255),
+          strokeWidth: 0.01
+        }));
+      }
       if (Math.random() > p) {
         s.circle(x + 0.5, y + 0.5, 0.15).attr({
           stroke: 'none',
           fill: 'none'
         });
-        // n_points += 1;
         var line = s.line(x - 0.5, y + 0.5, x + 1.5, y + 0.5).attr({
           stroke: Snap.rgb(0, 0, 0),
           strokeWidth: STROKE_WIDTH,
@@ -113,5 +145,4 @@ function regenerate () {
       }
     });
   });
-  // console.log('n points:', n_points);
 }

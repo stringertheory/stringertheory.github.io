@@ -1,7 +1,31 @@
 /* license for this code at /license.txt */
 
-/* global _, Snap, makeSVG */
+/* global _, Snap, makeSVG, make_parameters, format_int, format_decimal */
 /* exported regenerate */
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [7],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [7],
+    range: {'min': 1, 'max': 30},
+    format: format_int()
+  }, {
+    name: 'stroke_width',
+    start: [0.015],
+    range: {
+      'min': 0.001,
+      '50%': 0.01,
+      'max': 0.1
+    },
+    format: format_decimal()
+  }
+]);
+
 
 function drawGroup(s, x, y, w, color, min, max) {
   var pad = 0.07;
@@ -25,9 +49,9 @@ function drawGroup(s, x, y, w, color, min, max) {
 
 function regenerate () {
 
-  var N_X = 5;
-  var N_Y = 5;
-  var STROKE_WIDTH = 0.01;
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
+  var STROKE_WIDTH = parameters['stroke_width'].slider.get();
 
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y);

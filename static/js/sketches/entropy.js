@@ -1,9 +1,31 @@
 /* license for this code at /license.txt */
 
-/* global _, Snap, makeSVG */
+/* global _, Snap, makeSVG, make_parameters, format_int */
 /* exported regenerate */
 
 // http://gooddesignisgoodbusiness.tumblr.com/post/81138625150/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [50],
+    range: {
+      'min': 1,
+      '50%': 50,
+      'max': 200
+    },
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [200],
+    range: {
+      'min': 1,
+      '50%': 200,
+      'max': 500
+    },
+    format: format_int()
+  }
+]);
 
 function shuffle (array, n_swaps) {
   var swaps = 0;
@@ -19,8 +41,8 @@ function shuffle (array, n_swaps) {
 
 function regenerate () {
 
-  var N_X = 51;
-  var N_Y = 301;
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
   
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y);

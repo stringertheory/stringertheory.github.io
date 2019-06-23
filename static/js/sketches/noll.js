@@ -1,31 +1,77 @@
 /* license for this code at /license.txt */
 
-/* global _, Snap, makeSVG */
+/* global _, Snap, makeSVG, make_parameters, format_int, format_decimal */
 /* exported regenerate */
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n',
+    start: [42],
+    range: {'min': 1, 'max': 100},
+    format: format_int(),
+    metric_name: 'n_x'
+  }, {
+    name: 'stroke_width',
+    start: [0.4],
+    range: {
+      'min': 0.01,
+      '50%': 0.3,
+      'max': 0.9
+    },
+    format: format_decimal()
+  }, {
+    name: 'p_vertical',
+    start: [0.3],
+    range: {'min': 0, 'max': 1.0},
+    format: format_decimal(),
+    metric_name: 'p',
+  }, {
+    name: 'p_draw',
+    start: [0.2],
+    range: {'min': 0, 'max': 1.0},
+    format: format_decimal(),
+    metric_name: 'p_2'
+  }, {
+    name: 'grid_jitter',
+    start: [0.5],
+    range: {'min': 0, 'max': 1},
+  }
+]);
+
+
 
 function regenerate () {
 
-  var N_X = 42;
-  var N_Y = 42;
-  var STROKE_WIDTH = 0.4;
-  var P_VERTICAL = 0.3;
-  var P_DRAW = 0.2;
-  var GRID_JITTER = 0.5;
+  var BORDER = 0;
+  var N_X = parameters['n'].slider.get();
+  var N_Y = parameters['n'].slider.get();
+  var STROKE_WIDTH = new Number(parameters['stroke_width'].slider.get());
+  var P_VERTICAL = new Number(parameters['p_vertical'].slider.get());
+  var P_DRAW = new Number(parameters['p_draw'].slider.get());
+  var GRID_JITTER = new Number(parameters['grid_jitter'].slider.get());
+  var BACKGROUND_COLOR = 'white';
+  
+  var s = makeSVG(N_X, N_Y, BORDER);
 
-  var s = makeSVG(N_X, N_Y);
-
+  s.rect(-BORDER, -BORDER, N_X + 2*BORDER, N_Y + 2*BORDER).attr({
+    fill: BACKGROUND_COLOR,
+    stroke: 'none'
+  });
+  
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
       var r_squared = Math.pow((N_X / 2 - x), 2) + Math.pow((N_Y / 2 - y), 2);
       if (Math.sqrt(r_squared) <= N_X / 2 && Math.random() < P_DRAW) {
-        var l = s.line(x, y, x + 1 + 2 * Math.random(), y).attr({
+        // var l = s.line(x, y, x + 1 + 2 * Math.random(), y).attr({
+        var length = 2 * Math.random();
+        var l = s.line(x - 0.5 - length/2, y, x + 0.5 + length/2, y).attr({
           stroke: 'black',
           strokeWidth: STROKE_WIDTH
         });
         l.transform(
           Snap.format('t{x},{y}', {
-            x: GRID_JITTER * Math.random(),
-            y: GRID_JITTER * Math.random()
+            x: GRID_JITTER * (Math.random() - 0.5),
+            y: GRID_JITTER * (Math.random() - 0.5)
           })
         );
         if (Math.random() < P_VERTICAL) {

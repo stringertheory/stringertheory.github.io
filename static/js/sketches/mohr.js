@@ -1,15 +1,52 @@
 /* license for this code at /license.txt */
 
-/* global _, Snap, makeSVG */
+/* global _, Snap, makeSVG, make_parameters, format_int, format_decimal */
 /* exported regenerate */
 
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_x',
+    start: [8],
+    range: {'min': 1, 'max': 42},
+    format: format_int()
+  }, {
+    name: 'n_y',
+    start: [8],
+    range: {'min': 1, 'max': 42},
+    format: format_int()
+  }, {
+    name: 'stroke_width',
+    start: [0.02],
+    range: {
+      'min': 0.002,
+      '50%': 0.02,
+      'max': 0.2
+    },
+    format: format_decimal()
+  }, {
+    name: 'padding',
+    start: [0.2],
+    range: {'min': 0, 'max': 0.35},
+    format: format_decimal(),
+    metric_name: 'stroke_width_2',
+  }, {
+    name: 'tightness',
+    start: [0.15],
+    range: {'min': 0.02, '50%': 0.1, 'max': 0.3},
+    format: format_decimal(),
+    metric_name: 'grid_jitter'
+  }
+]);
+
+
 function regenerate () {
+
   var BORDER = 1;
-  var N_X = 8;
-  var N_Y = 8;
-  var STROKE_WIDTH = 0.02;
-  var PAD = 0.2;
-  var R = 0.15;
+  var N_X = parameters['n_x'].slider.get();
+  var N_Y = parameters['n_y'].slider.get();
+  var STROKE_WIDTH = parameters['stroke_width'].slider.get();
+  var PAD = new Number(parameters['padding'].slider.get());
+  var R = new Number(parameters['tightness'].slider.get());
   var BACK = 25;
   var FORE = 230;
   var OPACITY = 0.9;
@@ -27,8 +64,7 @@ function regenerate () {
 
   s.rect(-BORDER, -BORDER, N_X + 2*BORDER, N_Y + 2*BORDER).attr({
     fill: Snap.rgb(BACK, BACK, BACK),
-    stroke: 'none',
-    fillOpacity: OPACITY
+    stroke: 'none'
   });
 
   _.each(_.range(N_Y), function (y_i) {

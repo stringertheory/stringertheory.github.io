@@ -1,9 +1,32 @@
 /* license for this code at /license.txt */
 
-/* global chroma, Snap, makeSVG */
+/* global chroma, Snap, makeSVG, make_parameters, format_int */
 /* exported regenerate */
 
 // http://www.wassilykandinsky.net/work-247.php
+
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n_lines',
+    start: [5],
+    range: {'min': 0, 'max': 42},
+    format: format_int(),
+    metric_name: 'n_x'
+  }, {
+    name: 'n_circles',
+    start: [15],
+    range: {'min': 0, 'max': 42},
+    format: format_int(),
+    metric_name: 'n_y'
+  }, {
+    name: 'n_bars',
+    start: [2],
+    range: {'min': 0, 'max': 5},
+    format: format_int(),
+    metric_name: 'n_objects'
+  }
+]);
+
 
 function regenerate() {
   
@@ -13,10 +36,14 @@ function regenerate() {
   var BIG_CIRCLE_STROKE_WIDTH = 0.5;
   var BIG_CIRCLE_RADIUS = N_X / 2 - 0.5;
   var BIG_CIRCLE_COLOR = Snap.rgb(25, 35, 45);
-  var N_CIRCLES = 15;
-  var N_LINES = 5;
-  var N_BARS = 2;
-
+  var N_CIRCLES = parameters['n_circles'].slider.get();
+  var N_LINES = parameters['n_lines'].slider.get();
+  var N_BARS = parameters['n_bars'].slider.get();
+  // var N_CIRCLES = 15;
+  // var N_LINES = 5;
+  // var N_BARS = 2;
+  var BORDER = 1;
+  
   var drawBars = function (nBars) {
     var n_done = 0;
     while (n_done < nBars) {
@@ -81,7 +108,7 @@ function regenerate() {
   var s = makeSVG(N_X, N_Y, 1);
 
   // background square
-  s.rect(-1, -1, N_X + 2, N_Y + 2).attr({
+  s.rect(-BORDER, -BORDER, N_X + 2*BORDER, N_Y + 2*BORDER).attr({
     stroke: 'none',
     fill: BACKGROUND_COLOR,
     style: 'mix-blend-mode: darken'
