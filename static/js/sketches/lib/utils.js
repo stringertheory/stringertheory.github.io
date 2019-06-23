@@ -224,3 +224,10 @@ function format_int () {
     'from': function(value) {return parseInt(value);}
   };
 }
+
+function format_decimal () {
+  return {
+    'to': function(value) {return new Number(value).toFixed(3);},
+    'from': function(value) {return new Number(value).toFixed(3);}
+  };
+}

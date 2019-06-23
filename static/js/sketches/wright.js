@@ -17,10 +17,11 @@ var parameters = make_parameters('parameters', [
     range: {'min': 1, 'max': 30},
     format: format_int()
   }, {
-    name: 'n_objects',
+    name: 'n_feathers',
     start: [16 + 9],
     range: {'min': 0, 'max': 100},
-    format: format_int()
+    format: format_int(),
+    metric_name: 'n_objects'
   }, {
     name: 'n_texture',
     start: [0],
@@ -93,7 +94,7 @@ function regenerate () {
 
   var N_X = parameters['n_x'].slider.get();
   var N_Y = parameters['n_y'].slider.get();
-  var N_SQUARES = parameters['n_objects'].slider.get();
+  var N_SQUARES = parameters['n_feathers'].slider.get();
 
   var BASE_COLOR = chroma.rgb(223,188,130);
   var RED = chroma.rgb(166,90,42);

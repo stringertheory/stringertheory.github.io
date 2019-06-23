@@ -3,137 +3,129 @@
 /* global _, chroma, makeSVG, make_parameters, format_int */
 /* exported regenerate */
 
-function make_key(x, y, z) {
-  return [x, y, z].join('.');
-}
-
-function is_visited(x, y, z, lookup, max_x, max_y) {
-  if (x >= max_x || x < 0) {
-    return true;
-  } else if (y >= max_y || y < 0) {
-    return true;
-  } else if (lookup.hasOwnProperty(make_key(x, y, z))) {
-    return true;
+var parameters = make_parameters('parameters', [
+  {
+    name: 'branch_density',
+    start: [2],
+    range: {
+      'min': 0,
+      'max': 10
+    },
+    format: format_int(),
+    metric_name: 'n_x'
+  }, {
+    name: 'leaf_density',
+    start: [3],
+    range: {
+      'min': 0,
+      'max': 10
+    },
+    format: format_int(),
+    metric_name: 'n_y'
+  }, {
+    name: 'n_layers',
+    start: [4],
+    range: {
+      'min': 1,
+      'max': 10
+    },
+    format: format_int(),
+    metric_name: 'n_objects'
   }
-  return false;
+]);
+
+function make_branches(s, n_x, n_y, n, color, base_width, noise_scale) {
+  var n_branches = 0;
+  var r = n_x;
+  var theta1, theta2, x1, x2, y1, y2;
+  while (n_branches < n) {
+    
+    theta1 = 2 * Math.random() * Math.PI;
+    x1 = n_x / 2 + r * Math.cos(theta1);
+    y1 = n_y / 2 + r * Math.sin(theta1);
+    
+    theta2 = 2 * Math.random() * Math.PI;
+    x2 = n_x / 2 + r * Math.cos(theta2);
+    y2= n_y / 2 + r * Math.sin(theta2);
+    
+    s.line(x1, y1, x2, y2).attr({
+      stroke: color,
+      strokeWidth: base_width + noise_scale * Math.random()
+    });
+    
+    n_branches += 1;
+  }
 }
 
-function mark(x, y, z, lookup) {
-  lookup[make_key(x, y, z)] = true;
+function make_dots(s, n_x, n_y, n, colors, min_radius, radius_scale) {
+  var n_dots = 0;
+  while (n_dots < n) {
+    s.circle(
+      -2*radius_scale + (n_x + 4*radius_scale) * Math.random(),
+      -2*radius_scale + (n_y + 4*radius_scale) * Math.random(),
+      min_radius + radius_scale * Math.random()
+    ).attr({
+      stroke: 'none',
+      fill: _.sample(colors),
+    });
+    n_dots += 1;
+  }
 }
+
 
 function regenerate () {
-  
-  var N_X = 13 * 5;
-  var N_Y = 13 * 5;
-  var m = 5;
-  
-  // warm leaves
-  var colors = [
-    chroma.rgb(224, 27, 23),
-    chroma.rgb(224, 200, 50),
-    chroma.rgb(224, 116, 45)
-  ];
 
+  var N_X = 33;
+  var N_Y = 33;
+  
+  var leaf_density = parameters['leaf_density'].slider.get();
+  var branch_density = parameters['branch_density'].slider.get();
+  var N_LAYERS = parameters['n_layers'].slider.get();
+
+  var branch_color = chroma.rgb(25, 25, 25);
+  var sky_color = chroma.rgb(195, 225, 255);
+  var color1 = chroma('white');
+  var color2 = chroma('pink');
+
+  var scale = chroma.scale([color1, color2]).mode('lab');
+  var leaf_colors = [scale(0.05), scale(0.50), scale(0.95)];
+  
   var s = makeSVG(N_X, N_Y);
 
-  s.rect(-N_X, -N_Y, 3 * N_X, 3 * N_Y).attr({
-    'fill': chroma.rgb(220, 220, 220).hex(),
+  s.rect(0, 0, N_X, N_Y).attr({
+    'fill': sky_color.hex()
   });
 
-  var n_branches = 0;
-  var N_BRANCHES = 100 * m;
-  while (n_branches < N_BRANCHES) {
+  var colors;
+  var MIN_RADIUS = 0.2;
+  var MIN_BRANCHES = 5;
+  var MIN_DOTS = 0;
+  _.each(_.range(N_LAYERS), function (i) {
 
-    var r = N_X;
-
-    var theta1 = 2 * Math.random() * Math.PI;
-    var x1 = N_X / 2 + r * Math.cos(theta1);
-    var y1 = N_Y / 2 + r * Math.sin(theta1);
-
-    var theta2 = 2 * Math.random() * Math.PI;
-    var x2 = N_X / 2 + r * Math.cos(theta2);
-    var y2= N_Y / 2 + r * Math.sin(theta2);
+    var n_branches = branch_density * (MIN_BRANCHES + 200 * Math.pow((N_LAYERS - (i + 0.5)) / N_LAYERS, 2.5));
+    var branch_width = 0.5 * Math.pow((i + 1) / N_LAYERS, 2.5);
+    var branch_scale = 1.0 * Math.pow((i + 1) / N_LAYERS, 2.0);
+    var n_dots = leaf_density * (MIN_DOTS + 500 * Math.pow((N_LAYERS - (i + 0)) / N_LAYERS, 0.5));
+    var radius_scale = 0.5 * Math.pow((i + 1) / N_LAYERS, 2.0);
+    var mix_factor = (N_LAYERS - (i + 1)) / N_LAYERS;
     
-    s.line(x1, y1, x2, y2).attr({
-      stroke: chroma.rgb(200, 200, 190),
-      strokeWidth: 0.025 + 0.25 * Math.random()
+    colors = _.map(leaf_colors, function(color) {
+      return chroma.mix(color, sky_color, mix_factor, 'lab').hex();
     });
-    
-    n_branches += 1;
-  }
+    make_dots(
+      s, N_X, N_Y,
+      n_dots,
+      colors,
+      MIN_RADIUS,
+      radius_scale
+    );
+    make_branches(
+      s, N_X, N_Y,
+      n_branches,
+      chroma.mix(sky_color, branch_color, (i + 1) / N_LAYERS, 'lab').hex(),
+      branch_width,
+      branch_scale
+    );
 
-  var n_dots = 0;
-  var N_DOTS = 1000 * m;
-  while (n_dots < N_DOTS) {
-    s.circle(
-        -2 + (N_X + 4) * Math.random(),
-        -2 + (N_Y + 4) * Math.random(),
-      0.5 * Math.random()
-    ).attr({
-      stroke: 'none',
-      fill: _.sample(colors),
-    });
-    n_dots += 1;
-  }
-
-  
-  n_branches = 0;
-  N_BRANCHES = 100 * m;
-  while (n_branches < N_BRANCHES) {
-
-    var r = N_X;
-
-    var theta1 = 2 * Math.random() * Math.PI;
-    var x1 = N_X / 2 + r * Math.cos(theta1);
-    var y1 = N_Y / 2 + r * Math.sin(theta1);
-
-    var theta2 = 2 * Math.random() * Math.PI;
-    var x2 = N_X / 2 + r * Math.cos(theta2);
-    var y2= N_Y / 2 + r * Math.sin(theta2);
-    
-    s.line(x1, y1, x2, y2).attr({
-      stroke: chroma.rgb(100, 100, 90),
-      strokeWidth: 0.05 + 0.5 * Math.random()
-    });
-    
-    n_branches += 1;
-  }
-
-  var n_dots = 0;
-  var N_DOTS = 1000 * m;
-  while (n_dots < N_DOTS) {
-    s.circle(
-        -2 + (N_X + 4) * Math.random(),
-        -2 + (N_Y + 4) * Math.random(),
-      0.5 * Math.random()
-    ).attr({
-      stroke: 'none',
-      fill: _.sample(colors),
-    });
-    n_dots += 1;
-  }
-
-  var n_branches = 0;
-  var N_BRANCHES = 10 * m;
-  while (n_branches < N_BRANCHES) {
-
-    var r = N_X;
-
-    var theta1 = 2 * Math.random() * Math.PI;
-    var x1 = N_X / 2 + r * Math.cos(theta1);
-    var y1 = N_Y / 2 + r * Math.sin(theta1);
-
-    var theta2 = 2 * Math.random() * Math.PI;
-    var x2 = N_X / 2 + r * Math.cos(theta2);
-    var y2= N_Y / 2 + r * Math.sin(theta2);
-    
-    s.line(x1, y1, x2, y2).attr({
-      stroke: chroma.rgb(15, 15, 10),
-      strokeWidth: 0.5 + Math.random()
-    });
-    
-    n_branches += 1;
-  }
-  
+  });
 }

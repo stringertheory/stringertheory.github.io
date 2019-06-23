@@ -1,6 +1,6 @@
 /* license for this code at /license.txt */
 
-/* global _,  makeSVG, make_parameters, format_int, noise */
+/* global _,  makeSVG, make_parameters, format_int, noise, format_decimal */
 /* exported regenerate */
 
 var parameters = make_parameters('parameters', [
@@ -12,19 +12,51 @@ var parameters = make_parameters('parameters', [
     metric_name: 'n_x'
   }, {
     name: 'n_outside',
-    start: [7],
+    start: [17],
     range: {'min': 1, 'max': 42},
     format: format_int(),
     metric_name: 'n_y'
+  }, {
+    name: 'stroke_width',
+    start: [0.01],
+    range: {
+      'min': 0.001,
+      '50%': 0.01,
+      'max': 0.1
+    },
+    format: format_decimal()
+  }, {
+    name: 'perlin_noise',
+    start: [0.25],
+    range: {
+      'min': 0,
+      '50%': 0.5,
+      'max': 1.5
+    },
+    metric_name: 'grid_jitter'
+  }, {
+    name: 'random_noise',
+    start: [0],
+    range: {
+      'min': 0,
+      'max': 0.25
+    },
+    metric_name: 'grid_jitter_2'
+  }, {
+    name: 'n_sides',
+    start: [17],
+    range: {
+      'min': 3,
+      '50%': 17,
+      'max': 60
+    },
+    format: format_int(),
+    metric_name: 'n_objects'
   }
 ]);
 
 function ngon(angle, n, rotation=0) {
   return Math.cos(Math.PI / n) / Math.cos(((angle + rotation) % (2 * Math.PI / n)) - (Math.PI / n));
-}
-
-function square(angle) {
-  return Math.min(1 / Math.abs(Math.cos(angle)), 1 / Math.abs(Math.sin(angle)));
 }
 
 function regenerate () {
@@ -36,13 +68,24 @@ function regenerate () {
   var N_POINTS = FACE.length;
   var N_INSIDE = parameters['n_inside'].slider.get();
   var N_OUTSIDE = parameters['n_outside'].slider.get();
-  var STROKE_WIDTH = 0.01;
+  var STROKE_WIDTH = parameters['stroke_width'].slider.get();
+
+  var PERLIN = parameters['perlin_noise'].slider.get();
+  var RANDOM = parameters['random_noise'].slider.get();
+  var N_SIDES = parameters['n_sides'].slider.get();
+
+  var PERLIN_OUTSIDE = PERLIN;
+  var RANDOM_OUTSIDE = RANDOM;
+  var N_SIDES_OUTSIDE = N_SIDES;
+  var PERLIN_INSIDE = PERLIN;
+  var RANDOM_INSIDE = RANDOM;
+  var N_SIDES_INSIDE = N_SIDES;
   
   var BORDER = 0.5;
   var s = makeSVG(N_X, N_Y, BORDER);
 
   var all_points = [];
-  _.each(_.range(2 + N_OUTSIDE), function (dummy) {
+  _.each(_.range(1 + N_OUTSIDE), function (dummy) {
     all_points.push([]);
   });
   _.each(_.range(2 + N_INSIDE), function (dummy) {
@@ -55,30 +98,29 @@ function regenerate () {
 
     var x_noise = 2 * Math.cos(angle);
     var y_noise = 2 * Math.sin(angle);
-    // var x_noise2 = 2 * Math.cos(angle + Math.PI / 2);
-    // var y_noise2 = 2 * Math.sin(angle + Math.PI / 2);
+    var x_noise2 = 2 * Math.cos(angle + Math.PI / 2);
+    var y_noise2 = 2 * Math.sin(angle + Math.PI / 2);
 
-    // var r_mid = 1 + 0.3 * noise.perlin2(x_noise, y_noise)
-    // var r_mid = ngon(angle, 5)
-    // var r_mid = 2 + 0.3 * Math.random();
+    // var r_mid = ngon(angle, 60) + 0.5 * noise.perlin2(x_noise3, y_noise3)
     // var x_mid = 2 + r_mid * Math.cos(angle);
     // var y_mid = 2 + r_mid * Math.sin(angle);
     var x_mid = 2 + FACE[i][0];
     var y_mid = 2 + FACE[i][1];
 
-    // var r_out = 1 + 0.2 * Math.random()
-    var r_out = 1 + 0.5 * noise.perlin2(x_noise, y_noise);
-    // var r_out = ngon(angle, 60)
+    var r_out = ngon(angle, N_SIDES_OUTSIDE);
+    r_out += PERLIN_OUTSIDE * noise.perlin2(x_noise, y_noise);
+    r_out += RANDOM_OUTSIDE * (Math.random() - 0.5);
     var x_out = 2 + 2 * r_out * Math.cos(angle);
     var y_out = 2 + 2 * r_out * Math.sin(angle);
 
-    // var r_in = ngon(angle, 60)
-    var r_in = 1 + 0.5 * noise.perlin2(x_noise, y_noise);
+    var r_in = ngon(angle, N_SIDES_INSIDE);
+    r_in += PERLIN_INSIDE * noise.perlin2(x_noise2, y_noise2);
+    r_in += RANDOM_INSIDE * (Math.random() - 0.5);
     var x_in = 2 + 0.3 * r_in * Math.cos(angle);
     var y_in = 2 + 0.3 * r_in * Math.sin(angle);
 
     var index = 0;
-    _.each(_.range(2 + N_OUTSIDE), function (j) {
+    _.each(_.range(1 + N_OUTSIDE), function (j) {
       var f = j / (1 + N_OUTSIDE);
       var x = f * x_mid + (1 - f) * x_out;
       var y = f * y_mid + (1 - f) * y_out;
