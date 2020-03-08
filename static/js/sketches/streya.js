@@ -4,6 +4,30 @@
    hsluv */
 /* exported regenerate */
 
+var parameters = make_parameters('parameters', [
+  {
+    name: 'n',
+    start: [10],
+    range: {'min': 1, 'max': 15},
+    format: format_int()
+  }, {
+    name: 'n_colors',
+    start: [5],
+    range: {'min': 2, 'max': 7},
+    format: format_int()
+  }, {
+    name: 'n_per',
+    start: [10],
+    range: {'min': 1, 'max': 50},
+    format: format_int()
+  }, {
+    name: 'jitter',
+    start: [0.25],
+    range: {'min': 0.0, 'max': 1.0},
+    format: format_decimal()
+  }
+]);
+
 function make_line(s, cx, n) {
   var points = [];
   var y = 0;
@@ -44,8 +68,8 @@ function color_set(n) {
   var result = [];
   _.each(_.range(n), function (i) {
     var h = offset + (360 / n) * i;
-    var sat = 1;
-    var v = 1;
+    var sat = 0.9;
+    var v = 0.9;
     var color = chroma.hsv(h, sat, v);
     result.push(color);
   });
@@ -83,7 +107,7 @@ function color_scheme(n) {
   var changeHue = (hue_b - hue_a) / n;
   var changeSat = (sat_b - sat_a) / n;
   var changeLig = (lig_b - lig_a) / n;
-
+    
   var colors = [];
   _.each(_.range(n), function(i) {
     colors.push(
@@ -101,14 +125,18 @@ function color_scheme(n) {
 
 function regenerate() {
 
-  var N_X = 10;
-  var N_Y = 10;
-  var JITTER_AMOUNT = 0.5;
+  var N_COLORS = parameters['n_colors'].slider.get();
+  var N_X = parameters['n'].slider.get();
+  var N_Y = parameters['n'].slider.get();
+  var N_PER = parameters['n_per'].slider.get();
+  var JITTER_AMOUNT = parameters['jitter'].slider.get();
 
   var BORDER = 0.5;
   var s = makeSVG(N_X, N_Y, BORDER);
 
-  var bgColor = chroma.rgb(250, 245, 240);
+    var bgColor = chroma.rgb(250, 250, 250);
+  // var bgColor = chroma.rgb(5, 10, 15);
+  // var bgColor = chroma.rgb(50, 100, 100);
   s.rect(-BORDER, -BORDER, N_X + 2*BORDER, N_Y + 2*BORDER).attr({
     stroke: 'none',
     fill: bgColor.hex()
@@ -169,7 +197,7 @@ function regenerate() {
 
   // });
 
-  // var colors = color_set(12);
+  var colors = color_set(N_COLORS);
   // var n = colors.length;
   // _.each(_.range(n), function(i) {
   //   var color = colors[i];
@@ -180,7 +208,7 @@ function regenerate() {
   //   })
   // });
 
-  // var colors = color_scheme(5);
+  // var colors = color_scheme(N_COLORS);
   // var n = colors.length;
   // _.each(_.range(n), function(i) {
   //   var color = colors[i];
@@ -190,31 +218,31 @@ function regenerate() {
   //   })
   // });
 
-  var colors = color_scheme(10);
+  // var colors = color_scheme(10);
   // var bez = chroma.bezier(['white', 'black'])
   // console.log(bez(0.5));
-  var colors = [
-    chroma.rgb(238, 32, 77),
-    chroma.rgb(252, 232, 131),
-    chroma.rgb(31, 117, 254),
-    chroma.rgb(180, 103, 77),
-    chroma.rgb(255, 117, 56),
-    chroma.rgb(28, 172, 120),
-    chroma.rgb(146, 110, 174),
-    chroma.rgb(35, 35, 35),
-    // chroma.rgb(192, 68, 143),
-    // chroma.rgb(255, 83, 73),
-    // chroma.rgb(197, 227, 132),
-    // chroma.rgb(115, 102, 189),
-    // chroma.rgb(255, 170, 204),
-    // chroma.rgb(255, 182, 83),
-    // chroma.rgb(25, 158, 189),
-    // chroma.rgb(237, 237, 237),
-  ];
+  // var colors = [
+  //   chroma.rgb(238, 32, 77),
+  //   chroma.rgb(252, 232, 131),
+  //   chroma.rgb(31, 117, 254),
+  //   chroma.rgb(180, 103, 77),
+  //   chroma.rgb(255, 117, 56),
+  //   chroma.rgb(28, 172, 120),
+  //   chroma.rgb(146, 110, 174),
+  //   chroma.rgb(35, 35, 35),
+  //   // chroma.rgb(192, 68, 143),
+  //   // chroma.rgb(255, 83, 73),
+  //   // chroma.rgb(197, 227, 132),
+  //   // chroma.rgb(115, 102, 189),
+  //   // chroma.rgb(255, 170, 204),
+  //   // chroma.rgb(255, 182, 83),
+  //   // chroma.rgb(25, 158, 189),
+  //   // chroma.rgb(237, 237, 237),
+  // ];
 
   var color = null;
   var cx = N_X / 4;
-  var ny = 8;
+    var ny = N_PER;
   _.each(_.range(N_Y), function(y) {
     cx += 0.05;
     _.each(_.range(ny), function(i) {
@@ -226,10 +254,10 @@ function regenerate() {
         x = cx + jitter - rectWidth;
       }
       color = pick_avoid(colors, [color]);
-      color = bgColor;
-      s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
-        fill: tweak(color).hex()
-      });
+      // color = chroma.mix(bgColor, color);
+      // s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
+      //   fill: tweak(color).hex()
+      // });
 
       var triWidth = 0.25 + 1.0 * Math.random();
       var yy = y + i/ny;
@@ -278,10 +306,10 @@ function regenerate() {
         x = cx + jitter;
       }
       color = pick_avoid(colors, [color]);
-      color = bgColor;
-      s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
-        fill: tweak(color).hex()
-      });
+      // color = bgColor;
+      // s.rect(x, y + i/ny, rectWidth, 1/ny).attr({
+      //   fill: tweak(color).hex()
+      // });
 
       var triWidth = 0.25 + 1.0 * Math.random();
       var yy = y + i/ny;
@@ -338,7 +366,7 @@ function regenerate() {
     
   });
   
-  // // make_line(s, N_X / 4, N_Y + 1);
-  // // make_line(s, 3 * N_X / 4, N_Y + 1);
+  // make_line(s, N_X / 4, N_Y + 1);
+  // make_line(s, 3 * N_X / 4, N_Y + 1);
   
 }
