@@ -99,7 +99,8 @@ div.wrapper {
     width: 100%;
     border: 1px solid #d3cfcc;
     height: 48.6px;
-    background-size: 100% 100%; }
+    background-size: cover;
+    background-position: center; }
     @media screen and (min-width: 541px) {
       div.wrapper div.index-item {
         margin-top: 31.24px;
