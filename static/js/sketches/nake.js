@@ -9,7 +9,7 @@ function regenerate() {
   var N_Y = 12;
   var STROKE_COLOR = 'black';
   var STROKE_WIDTH = 0.02;
-  var CIRCLE_STROKE_COLOR = 'none';
+  var CIRCLE_STROKE_COLOR = 'black';
   var CIRCLE_STROKE_WIDTH = 0.02;
   var P_CRISSCROSS = 0.15;
   var P_VERTICAL = 0.05;
