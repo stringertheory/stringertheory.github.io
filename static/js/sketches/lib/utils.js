@@ -1,12 +1,7 @@
 /* license for this code at /license.txt */
 
-/* global _, Qs, Snap, noUiSlider, chroma, md5 */
-/* exported makeSVG, download, jitter, convertToPath, makeid, compliment,
-   make_parameters, format_int */
-
 function setSeed() {
-  // explicitly seed Math.random using hash
-  var seed = Qs.parse(window.location.hash)['#seed'];
+  var seed = Qs.parse(window.location.hash)["#seed"];
   if (seed) {
     Math.seedrandom(seed);
   } else {
@@ -14,111 +9,82 @@ function setSeed() {
   }
 }
 
-function makeSVG(n_x, n_y, border=0) {
-
-  var WIDTH = '100%';
-  
+function makeSVG(n_x, n_y, border = 0) {
+  var WIDTH = "100%";
   setSeed();
-  
-  var s = Snap('#canvas');
+  var s = Snap("#canvas");
   s.clear();
   s.attr({
     width: WIDTH,
-    viewBox: Snap.format('{min_x} {min_y} {width} {height}', {
+    viewBox: Snap.format("{min_x} {min_y} {width} {height}", {
       min_x: -border,
       min_y: -border,
-      width: n_x + 2*border,
-      height: n_y + 2*border
-    }),
-    // transform: "scale(1,0.333)",
-    // transform: "rotate(180)"
+      width: n_x + 2 * border,
+      height: n_y + 2 * border
+    })
   });
   var g = s.group();
-  // g.rect(-1, -1, n_x + 2, n_y + 2).attr({
-  //   // fill: chroma.hcl(90, 1, 100),
-  //   // fill: chroma.hcl(135, 10, 10),
-  //   fill: 'none',
-  //   stroke: 'none'
-  // })
-  // g.transform(
-  //   Snap.format('r{angle},{x_center},{y_center}', {
-  //     angle: 180,
-  //     x_center: n_x / 2,
-  //     y_center: n_y / 2
-  //   })
-  // )
   return g;
 }
 
 function dataURItoBlob(dataURI) {
-  // convert base64 to raw binary data held in a string doesn't handle
-  // URLEncoded DataURIs - see SO answer #6850276 for code that does
-  // this
-  var byteString = atob(dataURI.split(',')[1]);
-
-  // separate out the mime component
-  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-  // write the bytes of the string to an ArrayBuffer
+  var byteString = atob(dataURI.split(",")[1]);
+  var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
   var ab = new ArrayBuffer(byteString.length);
   var ia = new Uint8Array(ab);
   for (var i = 0; i < byteString.length; i++) {
     ia[i] = byteString.charCodeAt(i);
   }
-
-  // write the ArrayBuffer to a blob, and you're done
-  var blob = new Blob([ab], {type: mimeString});
+  var blob = new Blob([ ab ], {
+    type: mimeString
+  });
   return blob;
 }
 
 function download_svg(svg) {
-  svg.toDataURL('image/png', {
-    callback : function(data) {
-      var image = data.replace('image/png', 'image/octet-stream');
-      
+  svg.toDataURL("image/png", {
+    callback: function(data) {
+      var image = data.replace("image/png", "image/octet-stream");
       var hash_pre = md5(image);
       var hash = hash_pre.substring(0, 6);
-      var filename =
-          window.location.pathname + window.location.hash + '-' + hash;
-      var png_filename = filename + '.png';
-      var svg_filename = filename + '.svg';
-
+      var filename = window.location.pathname + window.location.hash + "-" + hash;
+      var png_filename = filename + ".png";
+      var svg_filename = filename + ".svg";
       var blob = dataURItoBlob(image);
       var blobUrl = URL.createObjectURL(blob);
       download_as_file(png_filename, blobUrl);
-
-      var svgString = (new XMLSerializer()).serializeToString(svg);
-      var svgUrl = 'data:text/plain;charset=utf-8,';
+      var svgString = new XMLSerializer().serializeToString(svg);
+      var svgUrl = "data:text/plain;charset=utf-8,";
       svgUrl += encodeURIComponent(svgString);
       download_as_file(svg_filename, svgUrl);
     }
   });
 }
 
-function download(element_id='#canvas') {
-  if (element_id[0] === '#') {
-    element_id = element_id.split('#')[1];
+function download(element_id = "#canvas") {
+  if (element_id[0] === "#") {
+    element_id = element_id.split("#")[1];
   }
   var element = document.getElementById(element_id);
-  if (element.nodeName == 'svg') {
+  if (element.nodeName == "svg") {
     download_svg(element);
-  } else if (element.nodeName == 'CANVAS') {
+  } else if (element.nodeName == "CANVAS") {
     download_canvas(element);
   } else {
-    console.error('unknown element', element.nodeName);
+    console.error("unknown element", element.nodeName);
   }
 }
 
 function download_canvas(canvas) {
   var hash_pre = md5(canvas);
   var hash = hash_pre.substring(0, 6);
-  var filename = window.location.pathname + window.location.hash + '-' + hash;
-  var png_filename = filename + '.png';
+  var filename = window.location.pathname + window.location.hash + "-" + hash;
+  var png_filename = filename + ".png";
   download_as_file(png_filename, canvas.toDataURL());
 }
 
 function download_as_file(filename, url) {
-  var a = document.createElement('a');
+  var a = document.createElement("a");
   a.href = url;
   a.download = filename;
   a.click();
@@ -126,45 +92,42 @@ function download_as_file(filename, url) {
 }
 
 function jitter(amount) {
-  return amount * (Math.random() - 0.5);
+  return amount * (Math.random() - .5);
 }
 
 function convertToPath(points) {
-  var path = '';
-  _.each(points, function (point, index) {
+  var path = "";
+  _.each(points, function(point, index) {
     var x = point[0];
     var y = point[1];
     if (index === 0) {
-      path += 'M' + x + ',' + y + ' R';
+      path += "M" + x + "," + y + " R";
     } else if (index === points.length - 1) {
-      path += x + ',' + y;
+      path += x + "," + y;
     } else {
-      path += x + ',' + y + ',';
+      path += x + "," + y + ",";
     }
   });
   return path;
 }
 
-
 function makeid(length) {
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  characters    += 'abcdefghijklmnopqrstuvwxyz';
-  characters += '0123456789';
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  characters += "abcdefghijklmnopqrstuvwxyz";
+  characters += "0123456789";
   var charactersLength = characters.length;
-  var seed = '';
-  for ( var i = 0; i < length; i++ ) {
+  var seed = "";
+  for (var i = 0; i < length; i++) {
     seed += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   var components = {
-    'seed': seed
+    seed: seed
   };
-  /* eslint-disable no-undef */
-  if (typeof parameters !== 'undefined') {
+  if (typeof parameters !== "undefined") {
     _.each(_.keys(parameters), function(key) {
       components[key] = parameters[key].slider.get();
     });
   }
-  /* eslint-enable no-undef */
   return Qs.stringify(components);
 }
 
@@ -185,28 +148,28 @@ function make_parameters(div_id, parameter_list) {
   var parent_div = document.getElementById(div_id);
   var result = {};
   var query_params = Qs.parse(window.location.hash);
-  _.each(parameter_list, function (conf) {
+  _.each(parameter_list, function(conf) {
     var name = conf.name;
     if (name in query_params) {
-      conf['start'] = [query_params[name]];
+      conf["start"] = [ query_params[name] ];
     }
-    var parameter_div = document.createElement('div');
-    parameter_div.classList.add('parameter');
-    var slider = document.createElement('div');
-    slider.id = 'slider-' + name;
-    slider.classList.add('parameter-slider');
-    slider.setAttribute('data-name', name.replace(/_/g, ' '));
+    var parameter_div = document.createElement("div");
+    parameter_div.classList.add("parameter");
+    var slider = document.createElement("div");
+    slider.id = "slider-" + name;
+    slider.classList.add("parameter-slider");
+    slider.setAttribute("data-name", name.replace(/_/g, " "));
     parameter_div.appendChild(slider);
-    var sliderValue = document.createElement('input');
-    sliderValue.id = 'slider-' + name + '-value';
-    sliderValue.classList.add('parameter-input');
+    var sliderValue = document.createElement("input");
+    sliderValue.id = "slider-" + name + "-value";
+    sliderValue.classList.add("parameter-input");
     parameter_div.appendChild(sliderValue);
     parent_div.appendChild(parameter_div);
     noUiSlider.create(slider, conf);
-    slider.noUiSlider.on('update', function (values, handle) {
+    slider.noUiSlider.on("update", function(values, handle) {
       sliderValue.value = values[handle];
     });
-    sliderValue.addEventListener('change', function () {
+    sliderValue.addEventListener("change", function() {
       slider.noUiSlider.set(this.value);
     });
     var metric_name = conf.metric_name || conf.name;
@@ -217,17 +180,25 @@ function make_parameters(div_id, parameter_list) {
   });
   return result;
 }
-//
-function format_int () {
+
+function format_int() {
   return {
-    'to': function(value) {return parseInt(value);},
-    'from': function(value) {return parseInt(value);}
+    to: function(value) {
+      return parseInt(value);
+    },
+    from: function(value) {
+      return parseInt(value);
+    }
   };
 }
 
-function format_decimal () {
+function format_decimal() {
   return {
-    'to': function(value) {return new Number(value).toFixed(3);},
-    'from': function(value) {return new Number(value).toFixed(3);}
+    to: function(value) {
+      return new Number(value).toFixed(3);
+    },
+    from: function(value) {
+      return new Number(value).toFixed(3);
+    }
   };
 }
