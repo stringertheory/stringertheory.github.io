@@ -53,8 +53,7 @@ function regenerate() {
   var STROKE_WIDTH = parameters["stroke_width"].slider.get();
   var PAD = new Number(parameters["padding"].slider.get());
   var R = new Number(parameters["tightness"].slider.get());
-  var BACK = Snap.rgb(106, 13, 173);
-  var BACK = Snap.rgb(106 * .8, 13, 173 * .8);
+  var BACK = 25;
   var FORE = 230;
   var OPACITY = .9;
   var ANGLES = {};

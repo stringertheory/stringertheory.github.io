@@ -2,7 +2,7 @@
 
 var parameters = make_parameters("parameters", [ {
   name: "n_x",
-  start: [ 1 ],
+  start: [ 5 ],
   range: {
     min: 1,
     max: 30
@@ -10,7 +10,7 @@ var parameters = make_parameters("parameters", [ {
   format: format_int()
 }, {
   name: "n_y",
-  start: [ 1 ],
+  start: [ 5 ],
   range: {
     min: 1,
     max: 30
@@ -69,7 +69,7 @@ function regenerate() {
       var points = blob(cx, cy, .4, N_POINTS);
       var face = s.polyline(points).attr({
         stroke: STROKE_COLOR,
-        fill: chroma.mix(_.sample(colors), "white", 0),
+        fill: chroma.mix(chroma.random(), "white", .5),
         strokeWidth: STROKE_WIDTH
       });
       group.add(face);
