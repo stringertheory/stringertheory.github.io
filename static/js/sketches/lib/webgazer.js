@@ -1702,13 +1702,14 @@ numeric.Function = Function, numeric.precision = 4, numeric.largeArray = 50, num
       if (e.length > numeric.largeArray) return r.push("...Large Array..."), !0;
       var f = !1;
       r.push("[");
-      for (t = 0; t < e.length; t++) t > 0 && (r.push(","), f && r.push("\n ")), f = i(e[t]);
+      for (t = 0; t < e.length; t++) t > 0 && (r.push(","), f && r.push("\n ")), 
+      f = i(e[t]);
       return r.push("]"), !0;
     }
     r.push("{");
     var f = !1;
-    for (t in e) e.hasOwnProperty(t) && (f && r.push(",\n"), f = !0, r.push(t), r.push(": \n"), 
-    i(e[t]));
+    for (t in e) e.hasOwnProperty(t) && (f && r.push(",\n"), f = !0, r.push(t), 
+    r.push(": \n"), i(e[t]));
     return r.push("}"), !0;
   }
   var r = [];
@@ -1763,8 +1764,8 @@ numeric.Function = Function, numeric.precision = 4, numeric.largeArray = 50, num
 }, numeric.imageURL = function(t) {
   function n(e) {
     var t = e.length, n, r, i, s, o, u, a, f, l = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", c = "";
-    for (n = 0; n < t; n += 3) r = e[n], i = e[n + 1], s = e[n + 2], o = r >> 2, u = ((r & 3) << 4) + (i >> 4), 
-    a = ((i & 15) << 2) + (s >> 6), f = s & 63, n + 1 >= t ? a = f = 64 : n + 2 >= t && (f = 64), 
+    for (n = 0; n < t; n += 3) r = e[n], i = e[n + 1], s = e[n + 2], o = r >> 2, 
+    u = ((r & 3) << 4) + (i >> 4), a = ((i & 15) << 2) + (s >> 6), f = s & 63, n + 1 >= t ? a = f = 64 : n + 2 >= t && (f = 64), 
     c += l.charAt(o) + l.charAt(u) + l.charAt(a) + l.charAt(f);
     return c;
   }
@@ -2091,8 +2092,8 @@ numeric.trunc = function(t, n) {
   for (r = 0; r < s; r++) o[r] = Array(i);
   for (n = i - 1; n >= 1; n -= 2) {
     a = t[n], u = t[n - 1];
-    for (r = s - 1; r >= 1; --r) f = o[r], f[n] = -a[r], f[n - 1] = -u[r], --r, f = o[r], 
-    f[n] = -a[r], f[n - 1] = -u[r];
+    for (r = s - 1; r >= 1; --r) f = o[r], f[n] = -a[r], f[n - 1] = -u[r], --r, 
+    f = o[r], f[n] = -a[r], f[n - 1] = -u[r];
     r === 0 && (f = o[0], f[n] = -a[0], f[n - 1] = -u[0]);
   }
   if (n === 0) {
@@ -2235,10 +2236,11 @@ numeric.T.prototype.inv = function() {
     w = a[r][r], E = f[r][r], y = w * w + E * E, s = r;
     for (i = r + 1; i < n; i++) w = a[i][r], E = f[i][r], b = w * w + E * E, b > y && (s = i, 
     y = b);
-    s !== r && (T = a[r], a[r] = a[s], a[s] = T, T = f[r], f[r] = f[s], f[s] = T, T = o[r], 
-    o[r] = o[s], o[s] = T, T = u[r], u[r] = u[s], u[s] = T), l = a[r], c = f[r], d = o[r], 
-    v = u[r], w = l[r], E = c[r];
-    for (i = r + 1; i < n; i++) S = l[i], x = c[i], l[i] = (S * w + x * E) / y, c[i] = (x * w - S * E) / y;
+    s !== r && (T = a[r], a[r] = a[s], a[s] = T, T = f[r], f[r] = f[s], f[s] = T, 
+    T = o[r], o[r] = o[s], o[s] = T, T = u[r], u[r] = u[s], u[s] = T), l = a[r], 
+    c = f[r], d = o[r], v = u[r], w = l[r], E = c[r];
+    for (i = r + 1; i < n; i++) S = l[i], x = c[i], l[i] = (S * w + x * E) / y, 
+    c[i] = (x * w - S * E) / y;
     for (i = 0; i < n; i++) S = d[i], x = v[i], d[i] = (S * w + x * E) / y, v[i] = (x * w - S * E) / y;
     for (i = r + 1; i < n; i++) {
       h = a[i], p = f[i], m = o[i], g = u[i], w = h[r], E = p[r];
@@ -2341,7 +2343,8 @@ numeric.T.prototype.inv = function() {
     u = Array(r - s - 1);
     for (i = s + 1; i < r; i++) u[i - s - 1] = f[i][s];
     if (numeric.norm2(u) > 0) {
-      a = numeric.house(u), l = numeric.getBlock(f, [ s + 1, s ], [ r - 1, r - 1 ]), c = numeric.tensor(a, numeric.dot(a, l));
+      a = numeric.house(u), l = numeric.getBlock(f, [ s + 1, s ], [ r - 1, r - 1 ]), 
+      c = numeric.tensor(a, numeric.dot(a, l));
       for (i = s + 1; i < r; i++) {
         h = f[i], p = c[i - s - 1];
         for (o = s; o < r; o++) h[o] -= 2 * p[o - s];
@@ -2364,7 +2367,7 @@ numeric.T.prototype.inv = function() {
     H: f,
     Q: d
   };
-}, numeric.epsilon = 2.220446049250313e-16, numeric.QRFrancis = function(e, t) {
+}, numeric.epsilon = 2220446049250313e-31, numeric.QRFrancis = function(e, t) {
   typeof t == "undefined" && (t = 1e4), e = numeric.clone(e);
   var n = numeric.clone(e), r = numeric.dim(e), i = r[0], s, o, u, a, f, l, c, h, p, d = numeric.identity(i), v, m, g, y, b, w, E, S, x;
   if (i < 3) return {
@@ -2430,7 +2433,8 @@ numeric.T.prototype.inv = function() {
       }
       A = Math.min(i - 1, E + 3), s = Array(A - E);
       for (w = E + 1; w <= A; w++) s[w - E - 1] = e[w][E];
-      o = numeric.house(s), g = numeric.getBlock(e, [ E + 1, E ], [ A, i - 1 ]), y = numeric.tensor(o, numeric.dot(o, g));
+      o = numeric.house(s), g = numeric.getBlock(e, [ E + 1, E ], [ A, i - 1 ]), 
+      y = numeric.tensor(o, numeric.dot(o, g));
       for (w = E + 1; w <= A; w++) {
         m = e[w], b = y[w - E - 1];
         for (S = E; S < i; S++) m[S] -= 2 * b[S - E];
@@ -2461,9 +2465,10 @@ numeric.T.prototype.inv = function() {
       k = (m - x) * (m - x) + g * g, L = y * y + (b - x) * (b - x), k > L ? (k = A(k), 
       N = (m - x) / k, C = g / k) : (L = A(L), N = y / L, C = (b - x) / L), p = new s([ [ C, -N ], [ N, C ] ]), 
       h.setRows(u, v, p.dot(h.getRows(u, v)))) : (x = -.5 * w, T = .5 * A(-S), k = (m - x) * (m - x) + g * g, 
-      L = y * y + (b - x) * (b - x), k > L ? (k = A(k + T * T), N = (m - x) / k, C = g / k, 
-      x = 0, T /= k) : (L = A(L + T * T), N = y / L, C = (b - x) / L, x = T / L, T = 0), 
-      p = new s([ [ C, -N ], [ N, C ] ], [ [ x, T ], [ T, -x ] ]), h.setRows(u, v, p.dot(h.getRows(u, v))));
+      L = y * y + (b - x) * (b - x), k > L ? (k = A(k + T * T), N = (m - x) / k, 
+      C = g / k, x = 0, T /= k) : (L = A(L + T * T), N = y / L, C = (b - x) / L, 
+      x = T / L, T = 0), p = new s([ [ C, -N ], [ N, C ] ], [ [ x, T ], [ T, -x ] ]), 
+      h.setRows(u, v, p.dot(h.getRows(u, v))));
     }
   }
   var O = h.dot(t).dot(h.transjugate()), o = t.length, M = numeric.T.identity(o);
@@ -2543,7 +2548,8 @@ numeric.T.prototype.inv = function() {
     s[f] = h[u];
     if (u === 0) return;
     ++f, --u, p = l[u], d = c[u];
-  } else a = o[r[p]], i[a] === 0 ? (i[a] = 1, l[u] = p, ++u, h[u] = a, p = n[a], c[u] = d = n[a + 1]) : ++p;
+  } else a = o[r[p]], i[a] === 0 ? (i[a] = 1, l[u] = p, ++u, h[u] = a, p = n[a], 
+  c[u] = d = n[a + 1]) : ++p;
 }, numeric.ccsLPSolve = function(t, n, r, i, s, o, u) {
   var a = t[0], f = t[1], l = t[2], c = a.length - 1, h = 0, p = n[0], d = n[1], v = n[2], m, g, y, b, w, E, S, x, T, N, C, k;
   g = p[s], y = p[s + 1], i.length = 0;
@@ -2571,10 +2577,10 @@ numeric.T.prototype.inv = function() {
       E = C(h[m]), E > b && (w = m, b = E);
     }
     C(h[d]) < n * b && (v = k[d], b = k[w], k[d] = b, L[b] = d, k[w] = v, L[v] = w, 
-    b = h[d], h[d] = h[w], h[w] = b), b = o[d], w = f[d], S = h[d], u[b] = k[d], a[b] = 1, 
-    ++b;
-    for (v = p.length - 1; v !== -1; --v) m = p[v], E = h[m], p[v] = 0, h[m] = 0, m <= d ? (l[w] = m, 
-    c[w] = E, ++w) : (u[b] = k[m], a[b] = E / S, ++b);
+    b = h[d], h[d] = h[w], h[w] = b), b = o[d], w = f[d], S = h[d], u[b] = k[d], 
+    a[b] = 1, ++b;
+    for (v = p.length - 1; v !== -1; --v) m = p[v], E = h[m], p[v] = 0, h[m] = 0, 
+    m <= d ? (l[w] = m, c[w] = E, ++w) : (u[b] = k[m], a[b] = E / S, ++b);
     o[d + 1] = b, f[d + 1] = w;
   }
   for (v = u.length - 1; v !== -1; --v) u[v] = L[u[v]];
@@ -2596,8 +2602,8 @@ numeric.T.prototype.inv = function() {
       s[l] = o[p[a]];
       if (a === 0) return;
       ++l, --a, d = c[a], v = h[a];
-    } else f = r[d], i[f] === 0 ? (i[f] = 1, c[a] = d, ++a, p[a] = f, f = o[f], d = n[f], 
-    h[a] = v = n[f + 1]) : ++d;
+    } else f = r[d], i[f] === 0 ? (i[f] = 1, c[a] = d, ++a, p[a] = f, f = o[f], 
+    d = n[f], h[a] = v = n[f + 1]) : ++d;
   }
 }, numeric.ccsLPSolve0 = function(t, n, r, i, s, o, u, a) {
   var f = t[0], l = t[1], c = t[2], h = f.length - 1, p = 0, d = n[0], v = n[1], m = n[2], g, y, b, w, E, S, x, T, N, C, k, L;
@@ -2660,7 +2666,8 @@ numeric.T.prototype.inv = function() {
     T = o[x], N = o[x + 1], A = 0;
     for (S = T; S < N; ++S) {
       O = u[S], M = a[S], C = r[O], k = r[O + 1];
-      for (E = C; E < k; ++E) L = i[E], v[L] === 0 && (m[A] = L, v[L] = 1, A += 1), d[L] = d[L] + s[E] * M;
+      for (E = C; E < k; ++E) L = i[E], v[L] === 0 && (m[A] = L, v[L] = 1, A += 1), 
+      d[L] = d[L] + s[E] * M;
     }
     T = g[x], N = T + A, g[x + 1] = N;
     for (S = A - 1; S !== -1; --S) M = T + S, E = m[S], y[M] = E, b[M] = d[E], v[E] = 0, 
@@ -2999,8 +3006,8 @@ numeric.T.prototype.inv = function() {
     break;
 
    case "string":
-    o[0] = h(c(3 / (u[s - 2] * u[s - 2]), a[s - 2]), c(3 / (u[0] * u[0]), a[0])), p[0].push(0, 0, 0), 
-    p[1].push(s - 2, 0, 1), p[2].push(1 / u[s - 2], 2 / u[s - 2] + 2 / u[0], 1 / u[0]);
+    o[0] = h(c(3 / (u[s - 2] * u[s - 2]), a[s - 2]), c(3 / (u[0] * u[0]), a[0])), 
+    p[0].push(0, 0, 0), p[1].push(s - 2, 0, 1), p[2].push(1 / u[s - 2], 2 / u[s - 2] + 2 / u[0], 1 / u[0]);
     break;
 
    default:
@@ -3010,8 +3017,8 @@ numeric.T.prototype.inv = function() {
   p[0].push(f, f, f), p[1].push(f - 1, f, f + 1), p[2].push(1 / u[f - 1], 2 / u[f - 1] + 2 / u[f], 1 / u[f]);
   switch (typeof i) {
    case "undefined":
-    o[s - 1] = c(3 / (u[s - 2] * u[s - 2]), a[s - 2]), p[0].push(s - 1, s - 1), p[1].push(s - 2, s - 1), 
-    p[2].push(1 / u[s - 2], 2 / u[s - 2]);
+    o[s - 1] = c(3 / (u[s - 2] * u[s - 2]), a[s - 2]), p[0].push(s - 1, s - 1), 
+    p[1].push(s - 2, s - 1), p[2].push(1 / u[s - 2], 2 / u[s - 2]);
     break;
 
    case "string":
@@ -3091,7 +3098,8 @@ numeric.T.prototype.inv = function() {
         continue;
       }
       l[o] = (a - f) / (2 * N), y = n[o] - N, b = n[o], w = n[o] + N, S = (a - i) / N, 
-      x = (i - f) / N, T = s(m(l[o]), m(i), m(a), m(f), m(y), m(b), m(w), 1e-8), p = g(s(m(S - l[o]), m(x - l[o]), m(S - x)) / T, N / T);
+      x = (i - f) / N, T = s(m(l[o]), m(i), m(a), m(f), m(y), m(b), m(w), 1e-8), 
+      p = g(s(m(S - l[o]), m(x - l[o]), m(S - x)) / T, N / T);
       if (!(p > v)) break;
       N /= 16;
     }
@@ -3203,8 +3211,8 @@ numeric.T.prototype.inv = function() {
     ++k, a[k] = t + O, f[k] = P, l[k] = m;
     if (typeof u == "function") {
       var K, Q = t, G = t + .5 * O, Y;
-      V = u(G, g[k - 1]), $ = z(U(X, 0), U(0, V)), R($) || (Q = G, G = t + O, X = V, V = u(G, P), 
-      $ = z(U(X, 0), U(0, V)));
+      V = u(G, g[k - 1]), $ = z(U(X, 0), U(0, V)), R($) || (Q = G, G = t + O, X = V, 
+      V = u(G, P), $ = z(U(X, 0), U(0, V)));
       if (R($)) {
         var Z, et, tt, nt, rt = 0, it = 1, st = 1;
         for (;;) {
@@ -3213,9 +3221,9 @@ numeric.T.prototype.inv = function() {
             for (A = X.length - 1; A !== -1; --A) X[A] < 0 && V[A] > 0 && (Y = j(Y, (st * V[A] * Q - it * X[A] * G) / (st * V[A] - it * X[A])));
           }
           if (Y <= Q || Y >= G) break;
-          K = J._at(Y, k - 1), nt = u(Y, K), tt = z(U(X, 0), U(0, nt)), R(tt) ? (G = Y, V = nt, 
-          $ = tt, st = 1, rt === -1 ? it *= .5 : it = 1, rt = -1) : (Q = Y, X = nt, it = 1, 
-          rt === 1 ? st *= .5 : st = 1, rt = 1);
+          K = J._at(Y, k - 1), nt = u(Y, K), tt = z(U(X, 0), U(0, nt)), R(tt) ? (G = Y, 
+          V = nt, $ = tt, st = 1, rt === -1 ? it *= .5 : it = 1, rt = -1) : (Q = Y, 
+          X = nt, it = 1, rt === 1 ? st *= .5 : st = 1, rt = 1);
         }
         return P = J._at(.5 * (t + Y), k - 1), J.f[k] = i(Y, K), J.x[k] = Y, J.y[k] = K, 
         J.ymid[k - 1] = P, J.events = $, J.iterations = M, J;
@@ -3619,7 +3627,8 @@ numeric.T.prototype.inv = function() {
           if (j === 1) break;
           if (j === 0) {
             g[b - 1] = F * D;
-            for (w = 1; w <= o; w += 1) D = e[w][b - 1], e[w][b - 1] = e[w][b], e[w][b] = D;
+            for (w = 1; w <= o; w += 1) D = e[w][b - 1], e[w][b - 1] = e[w][b], 
+            e[w][b] = D;
           } else {
             g[b - 1] = D, I = F / (1 + j);
             for (w = 1; w <= o; w += 1) D = j * e[w][b - 1] + F * e[w][b], e[w][b] = I * (e[w][b - 1] + D) - e[w][b], 
@@ -3638,7 +3647,8 @@ numeric.T.prototype.inv = function() {
       j = g[S - 1] / D, F = g[S] / D;
       if (j === 1) return 798;
       if (j === 0) {
-        for (b = T + 1; b <= v; b += 1) D = g[S - 1], g[S - 1] = g[S], g[S] = D, S += b;
+        for (b = T + 1; b <= v; b += 1) D = g[S - 1], g[S - 1] = g[S], g[S] = D, 
+        S += b;
         for (b = 1; b <= o; b += 1) D = e[b][T], e[b][T] = e[b][T + 1], e[b][T + 1] = D;
       } else {
         I = F / (1 + j);
@@ -3817,7 +3827,8 @@ numeric.T.prototype.inv = function() {
         y = T * d[u], d[u] = o * d[u];
         if (Math.abs(y) <= r) break;
         b = v[u], w = g(y, b), v[u] = w, o = b / w, T = -y / w;
-        for (a = 0; a < h; a++) S = c[a][k], x = c[a][u], c[a][k] = S * o + x * T, c[a][u] = -S * T + x * o;
+        for (a = 0; a < h; a++) S = c[a][k], x = c[a][u], c[a][k] = S * o + x * T, 
+        c[a][u] = -S * T + x * o;
       }
     }
     x = v[f];
@@ -4646,8 +4657,8 @@ self.Float64Array = self.Float64Array || Array;
             break;
 
            case 3:
-            k[0] = .03125, k[1] = .109375, k[2] = .21875, k[3] = .28125, k[4] = .21875, k[5] = .109375, 
-            k[6] = .03125;
+            k[0] = .03125, k[1] = .109375, k[2] = .21875, k[3] = .28125, k[4] = .21875, 
+            k[5] = .109375, k[6] = .03125;
             g = .03125 + .109375 + .21875 + .28125 + .21875 + .109375 + .03125;
             break;
           }
@@ -6358,7 +6369,8 @@ self.Float64Array = self.Float64Array || Array;
           k[0] = k[1];
           k[n] = k[o];
           for (n = 0; n <= o - 4; n += 4) {
-            D = k[n + 2], C = k[n + 1], B = k[n + 3], A = k[n + 4], z = m[n + 2], v = m[n + 3];
+            D = k[n + 2], C = k[n + 1], B = k[n + 3], A = k[n + 4], z = m[n + 2], 
+            v = m[n + 3];
             F[g++] = z - m[n];
             F[g++] = (D + k[n]) * 3 + C * 10;
             F[g++] = v - m[n + 1];
@@ -6414,7 +6426,8 @@ self.Float64Array = self.Float64Array || Array;
           k[0] = k[1];
           k[n] = k[o];
           for (n = 0; n <= o - 4; n += 4) {
-            D = k[n + 2], C = k[n + 1], B = k[n + 3], A = k[n + 4], z = m[n + 2], v = m[n + 3];
+            D = k[n + 2], C = k[n + 1], B = k[n + 3], A = k[n + 4], z = m[n + 2], 
+            v = m[n + 3];
             F[g++] = z - m[n];
             F[g++] = D + k[n] + C * 2;
             F[g++] = v - m[n + 1];

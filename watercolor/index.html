@@ -40,10 +40,12 @@
      return false;
     });
     </script>
-    <meta name="description" content="Generative sketch inspired by Tyler Hobb's excellent post on simulating watercolor">
-    <link type="text/css" rel="stylesheet" href="/static/build/main.e4f9af7a.css">
+    <meta name="description" content=
+    "Generative sketch inspired by Tyler Hobb's excellent post on simulating watercolor">
+    <link type="text/css" rel="stylesheet" href="/static/build/main.c45139af.css">
     <link rel="stylesheet" href="/static/highlight/styles/github.css">
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel=
+    "stylesheet">
     <style>
     #canvas {
     border:1px solid #ddddda;
@@ -51,11 +53,8 @@
     </style>
   </head>
   <body>
-    <div class="wrapper">
-      <nav>
-        <a href="/">Home</a> <a href="/about/">About</a>
-      </nav>
-      <section class="main">
+    <div id="container">
+      <section id="main">
         <article>
           <header>
             <h1></h1>
@@ -63,33 +62,40 @@
           <section class="body">
             <canvas id="canvas" resize="" hidpi="off" width="1" height="1"></canvas>
             <div id="buttons" ontouchstart="">
-              <button onclick="window.location.hash = makeid(7)" class="button"><i class="fas fa-redo"></i> Regenerate</button> <button onclick="download()" class="button download"><i class="fas fa-arrow-down"></i> Download</button> <a href="/static/js/sketches/watercolor.js" class="button source"><i class="far fa-eye"></i> View Source</a>
+              <button onclick="window.location.hash = makeid(7)" class="button"><i class=
+              "fas fa-redo"></i> Regenerate</button> <button onclick="download()" class=
+              "button download"><i class="fas fa-arrow-down"></i> Download</button> <a href=
+              "/static/js/sketches/watercolor.js" class="button source"><i class=
+              "far fa-eye"></i> View Source</a>
             </div>
             <div id="parameters"></div>
             <h3>
               Notes
             </h3>
             <p>
-              Inspired by <a href="https://tylerxhobbs.com/essays/2017/a-generative-approach-to-simulating-watercolor-paints">Tyler Hobb’s excellent post on simulating watercolor</a>
+              Inspired by <a href=
+              "https://tylerxhobbs.com/essays/2017/a-generative-approach-to-simulating-watercolor-paints">
+              Tyler Hobb’s excellent post on simulating watercolor</a>
             </p>
           </section>
         </article>
       </section>
-      <footer>
-        <hr>
-        <p>
-          Questions or comments? Please <a href="mailto:mike.stringer.internet@gmail.com">email me</a> or tweet <a href="https://twitter.com/mstringer">@mstringer</a>. Thanks for visiting!
-        </p>
-      </footer>
+      <footer id="site-footer"></footer>
     </div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.5/paper-full.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script> 
+    <script src=
+    "//cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.5/paper-full.min.js"></script>
+    <link type="text/css" rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+    <script src=
+    "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script> 
     <script src="//cdnjs.cloudflare.com/ajax/libs/chroma-js/1.2.1/chroma.min.js"></script> 
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script> 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.6.0/js/md5.min.js"></script> 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.0/seedrandom.min.js"></script> 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.6.0/js/md5.min.js"></script>
+    
+    <script src=
+    "//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.0/seedrandom.min.js"></script> 
+    <script src=
+    "//cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.js"></script> 
     <script src="//cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script> 
     <script type="text/javascript" src="/static/build/main.c5963c40.js"></script>
     <script src="/static/js/sketches/watercolor.js"></script>

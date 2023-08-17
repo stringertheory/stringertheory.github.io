@@ -49,6 +49,9 @@ var events = {
     description: "Datascope started",
     date: moment("2009-07-01", "YYYY-MM-DD")
   }, {
+    description: "Finished grad school",
+    date: moment("2009-10-02", "YYYY-MM-DD")
+  }, {
     description: "Grad school started",
     date: moment("2004-09-01", "YYYY-MM-DD")
   }, {
@@ -58,11 +61,11 @@ var events = {
     description: "Datascope sold / started at IDEO",
     date: moment("2017-10-13", "YYYY-MM-DD")
   }, {
-    description: "Retire?",
-    date: moment("1982-07-25", "YYYY-MM-DD").add(65, "years")
+    description: "Finished at IDEO",
+    date: moment("2022-09-23", "YYYY-MM-DD")
   }, {
-    description: "Life expectancy?",
-    date: moment("1982-07-25", "YYYY-MM-DD").add(37 + 41.32, "years")
+    description: "Life expectancy",
+    date: moment("1982-07-25", "YYYY-MM-DD").add(40 + 38.74, "years")
   }, {
     description: "Dad died",
     date: moment("2019-03-10", "YYYY-MM-DD")
@@ -73,14 +76,16 @@ Object.keys(events).forEach(function(category) {
   events[category].forEach(function(event) {
     var index = getIndex(event.date, birthday);
     if (index >= 0) {
-      data[index].push(event.description);
+      data[index].push(event.date.format("MMMM Do YYYY") + ": " + event.description);
     }
   });
 });
 
+console.log(data);
+
 var what_i_wanted_to_do = [ "paleontologist", "lounge pianist", "architect", "baseball player", "mechanical engineer", "electrical engineer", "physicist", "biologist?", "artist?", "writer?" ];
 
-const width = 400;
+const width = 570;
 
 const padding = {
   top: 30,

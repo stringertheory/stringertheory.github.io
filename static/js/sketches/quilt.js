@@ -58,16 +58,18 @@ function rando() {
 function regenerate() {
   var N_X = parameters["n_x"].slider.get();
   var N_Y = parameters["n_y"].slider.get();
-  var N_COLORS = 3;
+  var N_COLORS = parameters["n_colors"].slider.get();
   var STROKE_WIDTH = parameters["stroke_width"].slider.get();
   var BOX_STROKE_WIDTH = parameters["stroke_width_inner"].slider.get();
   var GRID_JITTER = parameters["grid_jitter"].slider.get();
   var s = makeSVG(N_X, N_Y);
-  color1 = chroma.rgb(25, 55, 155);
+  var color1 = rando();
   var colors = [];
   colors.push(color1);
-  colors.push(chroma.rgb(75, 155, 75));
-  colors.push(chroma.rgb(205, 75, 35));
+  _.each(_.range(1, N_COLORS), function(i) {
+    var color = compliment(color1, i * 360 / N_COLORS, .5 * (1 + Math.random())).hex();
+    colors.push(color);
+  });
   var stroker = colors[0];
   s.rect(0, 0, N_X, N_Y).attr({
     fill: colors[0],

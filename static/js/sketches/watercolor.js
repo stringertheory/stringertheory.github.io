@@ -72,29 +72,29 @@ function regenerate() {
   var opacity = 1 / (nLayers + 1);
   var blend = "lighten";
   var nPoints = parameters["n_shapes"].slider.get();
-  var hiddenRadius = 125;
+  var hiddenRadius = paper.view.size.width / 4;
+  console.log(paper.view.size);
   var pointList = _.map(_.range(nPoints), function(i) {
     var angle = i * (2 * Math.PI / nPoints);
     var r = 2 * Math.PI * hiddenRadius;
-    return new paper.Point(.25 * r * (1 + (Math.random() - .5)) * Math.cos(angle) + 0, .25 * r * (1 + (Math.random() - .5)) * Math.sin(angle) + 0);
+    return new paper.Point(.25 * r * (1 + 2 * (Math.random() - .5)) * Math.cos(angle) + 0, .25 * r * (1 + 2 * (Math.random() - .5)) * Math.sin(angle) + 0);
   });
   var basePolygons = _.map(pointList, function(offset) {
     var multiplier = 1 + (nPoints - 2) / 15;
-    var radius = multiplier * 2 * hiddenRadius * Math.sin(Math.PI / nPoints);
+    multiplier = 1 + Math.sqrt(nPoints - 2);
+    var radius = (1 + .25 * (Math.random() - .5)) * multiplier * 2 * hiddenRadius * Math.sin(Math.PI / nPoints);
     var result = new paper.Path.RegularPolygon({
       center: paper.view.center.add(offset),
       sides: nSides,
       radius: radius,
-      opacity: opacity,
+      opacity: opacity * 10,
       blendMode: blend,
       fillColor: randomColor()
     });
-    deform(result, 1, 1.5, .25);
     return result;
   });
   _.each(_.range(nLayers * basePolygons.length), function(index) {
     var i = index % basePolygons.length;
-    deform(basePolygons[i].clone(), 4, 1.5, 5);
   });
   paper.view.draw();
 }
