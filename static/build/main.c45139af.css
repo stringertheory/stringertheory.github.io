@@ -280,7 +280,11 @@ div#container {
     margin-right: auto;
     max-width: 100%; }
   div#container img.venn {
-    max-width: 400px; }
+      width: 100%;
+      max-width: 500px; }
+  div#container figcaption {
+      text-align: center;
+  }
   div#container img.inline-right, div#container img.inline {
     width: 38%;
     float: right;
