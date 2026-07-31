@@ -30,16 +30,16 @@ html {
 
 /* yellow #FFE300 */
 *::-moz-selection {
-  background: #fedc8f; }
+  background: #f5d386; }
 
 *::selection {
-  background: #fedc8f; }
+  background: #f5d386; }
 
 .loud-link {
   display: none; }
 
 body {
-  background-color: white;
+  background-color: #edeeed;
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern" 1, "liga" 1;
   margin-top: 17.8875px;
@@ -65,8 +65,8 @@ div#container {
   margin-right: auto;
   word-wrap: break-word;
   padding-top: 6px;
-  background-color: white;
-  font-family: "UntitledSerif", serif;
+  background-color: #edeeed;
+  font-family: "UntitledSerif", Charter, "Bitstream Charter", Georgia, "Sitka Text", Cambria, serif;
   font-size: 18px;
   line-height: 1.325;
   /* font-m = line-height-base^(1/3), so that h2 font-size=line-height */ }
@@ -81,16 +81,19 @@ div#container {
     @media screen and (min-width: 601px) {
       div#container .sketchy-name {
         max-height: 42px; } }
+  @media screen and (min-width: 601px) {
+    div#container .sketchy-map {
+      margin-top: 42px; } }
   div#container > header > a:link, div#container > header > a:visited, div#container > header > a:active, div#container > header > a:hover {
     text-decoration: none; }
   div#container > header > a h1 {
-    color: #9f9784;
+    color: #8a8e8b;
     font-weight: normal;
     margin-top: 0;
     margin-bottom: 9px; }
   div#container > header > nav a {
     margin-right: 0.75em;
-    font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: "UntitledSans", system-ui, sans-serif;
     font-size: 18px;
     text-decoration-skip: ink;
     -webkit-text-decoration-skip: ink; }
@@ -98,21 +101,21 @@ div#container {
       div#container > header > nav a {
         font-size: 21px; } }
     div#container > header > nav a:link, div#container > header > nav a:visited {
-      color: #9f9784;
-      text-decoration-color: #cfcbc2; }
+      color: #8a8e8b;
+      text-decoration-color: #bcbebc; }
     div#container > header > nav a:hover {
-      color: #841b17;
-      text-decoration-color: #9b151b; }
+      color: #761b2a;
+      text-decoration-color: #91142a; }
     div#container > header > nav a:active {
-      color: #c90825;
-      text-decoration-color: #c90825; }
+      color: #c5082b;
+      text-decoration-color: #c5082b; }
   div#container div.index-item {
     margin-top: 23.85px;
     margin-bottom: 23.85px;
     position: relative;
     display: block;
     width: 100%;
-    border: 1px solid #d9d5ce;
+    border: 1px solid #c5c7c6;
     height: 47.7px; }
     @media screen and (min-width: 601px) {
       div#container div.index-item {
@@ -130,24 +133,24 @@ div#container {
       opacity: 1; }
     div#container div.index-item time {
       display: none;
-      color: #bfb9ad; }
+      color: #abaeab; }
     div#container div.index-item p {
       text-decoration: none;
       position: absolute;
       top: 0px;
-      background: linear-gradient(-45deg, rgba(246, 170, 184, 0.75) 50%, #80ceee 100%);
+      background: linear-gradient(-45deg, rgba(234, 159, 172, 0.75) 50%, #7ac9e8 100%);
       padding-left: 0.3em;
       padding-right: 0.3em;
       z-index: 2; }
     div#container div.index-item span.tags {
       display: none; }
     div#container div.index-item.draft a {
-      color: #cfcbc2 !important;
-      text-decoration-color: #cfcbc2; }
+      color: #bcbebc !important;
+      text-decoration-color: #bcbebc; }
     div#container div.index-item.draft::before {
       content: 'draft';
       text-transform: uppercase;
-      font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      font-family: "UntitledSans", system-ui, sans-serif;
       font-weight: bold;
       color: #e4002b; }
   div#container ul.index {
@@ -191,7 +194,7 @@ div#container {
       div#container ul.index li time {
         margin-left: 1px;
         /* margin-top: 27px; */
-        color: #bfb9ad;
+        color: #abaeab;
         text-transform: uppercase;
         font-size: 12.36853px;
         line-height: 1;
@@ -200,7 +203,7 @@ div#container {
         margin-bottom: 0px;
         letter-spacing: 0.05em;
         display: block;
-        font-family: "Inconsolata", monospace; }
+        font-family: "CommitMono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace; }
         @media screen and (min-width: 601px) {
           div#container ul.index li time {
             font-size: 13.40855px;
@@ -242,9 +245,9 @@ div#container {
     margin-block: 1em;
     margin-inline: 0; }
   div#container figcaption {
-    font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: "UntitledSans", system-ui, sans-serif;
     margin-top: 0.333em;
-    color: #9f9784;
+    color: #8a8e8b;
     font-size: 14.92091px;
     margin-inline: 0; }
     @media screen and (min-width: 601px) {
@@ -280,11 +283,7 @@ div#container {
     margin-right: auto;
     max-width: 100%; }
   div#container img.venn {
-      width: 100%;
-      max-width: 500px; }
-  div#container figcaption {
-      text-align: center;
-  }
+    max-width: 400px; }
   div#container img.inline-right, div#container img.inline {
     width: 38%;
     float: right;
@@ -301,41 +300,41 @@ div#container {
     width: 38%;
     float: left; }
   div#container h1, div#container h2, div#container h3, div#container h4, div#container h5, div#container h6 {
-    font-family: "UntitledSerif", serif;
+    font-family: "UntitledSerif", Charter, "Bitstream Charter", Georgia, "Sitka Text", Cambria, serif;
     font-weight: 700;
-    color: #3f2e08; }
+    color: #272d28; }
   div#container p {
-    color: #3f2e08;
+    color: #272d28;
     font-weight: 400; }
   div#container::selection {
-    text-shadow: 0.066em 0 #fedc8f, -0.066em 0 #fedc8f, 0 0.066em #fedc8f, 0 -0.066em #fedc8f;
+    text-shadow: 0.066em 0 #f5d386, -0.066em 0 #f5d386, 0 0.066em #f5d386, 0 -0.066em #f5d386;
     /* (2 * $z) 0 $background, */
     /* (-2 * $z) 0 $background, */
     /* (3 * $z) 0 $background, */
     /* (-3 * $z) 0 $background; */
-    background: #fedc8f; }
+    background: #f5d386; }
   div#container::-moz-selection {
-    text-shadow: 0.066em 0 #fedc8f, -0.066em 0 #fedc8f, 0 0.066em #fedc8f, 0 -0.066em #fedc8f;
+    text-shadow: 0.066em 0 #f5d386, -0.066em 0 #f5d386, 0 0.066em #f5d386, 0 -0.066em #f5d386;
     /* (2 * $z) 0 $background, */
     /* (-2 * $z) 0 $background, */
     /* (3 * $z) 0 $background, */
     /* (-3 * $z) 0 $background; */
-    background: #fedc8f; }
+    background: #f5d386; }
   div#container a {
     text-decoration-skip: ink;
     -webkit-text-decoration-skip: ink; }
     div#container a:link {
-      color: #408291;
-      text-decoration-color: #41abd4; }
+      color: #37819d;
+      text-decoration-color: #3fabd6; }
     div#container a:visited {
-      color: #40574b;
-      text-decoration-color: #408291; }
+      color: #2f5761;
+      text-decoration-color: #37819d; }
     div#container a:hover {
-      color: #841b17;
-      text-decoration-color: #9b151b; }
+      color: #761b2a;
+      text-decoration-color: #91142a; }
     div#container a:active {
-      color: #c90825;
-      text-decoration-color: #c90825; }
+      color: #c5082b;
+      text-decoration-color: #c5082b; }
   div#container header {
     border-bottom-width: 11.925px; }
     div#container header time {
@@ -347,7 +346,7 @@ div#container {
     margin-top: 47.7px;
     border-top-width: 11.925px; }
     div#container footer p {
-      color: #9f9784; }
+      color: #8a8e8b; }
     div#container footer svg.star {
       display: block;
       margin: auto;
@@ -399,7 +398,7 @@ div#container {
     margin-bottom: 23.35px;
     letter-spacing: -0.1px;
     border: 0;
-    background-color: #eceae6;
+    background-color: #d9dbd9;
     height: 1px;
     width: 33.33%; }
   @media screen and (min-width: 601px) {
@@ -418,7 +417,7 @@ div#container {
         margin-top: 58.8px;
         border-top-width: 14.7px; }
         div#container footer p {
-          color: #9f9784; }
+          color: #8a8e8b; }
         div#container footer svg.star {
           display: block;
           margin: auto;
@@ -470,13 +469,13 @@ div#container {
         margin-bottom: 28.9px;
         letter-spacing: -0.1px;
         border: 0;
-        background-color: #eceae6;
+        background-color: #d9dbd9;
         height: 1px;
         width: 33.33%; } }
 .highlight-first {
-  color: #fcf4e3; }
+  color: #f5f7f6; }
   .highlight-first::first-letter {
-    color: #3f2e08; }
+    color: #272d28; }
 
 ul.lister {
   list-style-type: none;
@@ -499,7 +498,7 @@ ul.lister li {
     margin: 0; }
   ul.lister li .date {
     margin-top: 7.5px;
-    font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: "UntitledSans", system-ui, sans-serif;
     font-size: 9px; }
   ul.lister li:after {
     content: "";
@@ -539,8 +538,8 @@ div.line {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #67c5eb;
-  background: #d9f0fa;
+  color: #63c1e7;
+  background: #cbe3ec;
   margin-left: 1em;
   padding-left: 0.25em;
   padding-right: 0.25em;
@@ -554,7 +553,7 @@ div.line {
   /* display: none; */ }
   #face-button:hover {
     color: #41b6e6;
-    background: #c6e9f8; }
+    background: #b9ddeb; }
   @media screen and (min-width: 601px) {
     #face-button {
       font-size: 16.78033px; } }
@@ -566,9 +565,9 @@ div.line {
 
 code.hljs {
   /* border-left: 0px solid mix($color-1, white, 100); */
-  background: linear-gradient(60deg, #fdedf0, #f2fafd);
+  background: linear-gradient(60deg, #ecdddf, #e1eaed);
   /* background: mix($text-color, $bg-color, 3); */
-  font-family: "Inconsolata", monospace;
+  font-family: "CommitMono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
   line-height: 1.1625;
   font-size: 13.58491px; }
   @media screen and (min-width: 601px) {
@@ -585,7 +584,7 @@ canvas[resize] {
     content: "(" attr(href) ")";
     font-family: sans-serif;
     font-size: smaller;
-    color: #a0b6b7; } }
+    color: #99b6bf; } }
 
 @page {
   margin-top: 1in;
@@ -596,11 +595,11 @@ canvas[resize] {
 .button, a.button {
   text-decoration: none;
   display: inline-block;
-  background: white;
-  border: 1px solid #3f2e08;
-  color: #3f2e08;
+  background: #edeeed;
+  border: 1px solid #272d28;
+  color: #272d28;
   cursor: pointer;
-  font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "UntitledSans", system-ui, sans-serif;
   text-transform: uppercase;
   padding-top: 2.71698px;
   padding-bottom: 2.71698px;
@@ -624,14 +623,14 @@ canvas[resize] {
         display: inline-block; } }
   .button:focus, a.button:focus {
     outline: none;
-    border-bottom: 2px solid #3f2e08;
+    border-bottom: 2px solid #272d28;
     padding-bottom: 2px; }
   @media (hover: hover) {
     .button:hover, a.button:hover {
-      background: #3f2e08;
-      color: white !important; } }
+      background: #272d28;
+      color: #edeeed !important; } }
   .button:active, a.button:active {
-    background: #3f2e08;
+    background: #272d28;
     color: #2e8540; }
 
 .parameter {
@@ -652,8 +651,8 @@ canvas[resize] {
       position: absolute;
       left: 0px;
       top: 2.71698px;
-      color: #7f745a;
-      font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      color: #696d6a;
+      font-family: "UntitledSans", system-ui, sans-serif;
       font-size: 13.58491px;
       text-transform: uppercase; }
   .parameter .parameter-input {
@@ -661,10 +660,10 @@ canvas[resize] {
     -webkit-appearance: none;
     border-radius: 0;
     width: 20%;
-    background: white;
-    border: 1px solid #3f2e08;
-    color: #3f2e08;
-    font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    background: #edeeed;
+    border: 1px solid #272d28;
+    color: #272d28;
+    font-family: "UntitledSans", system-ui, sans-serif;
     padding-top: 2.71698px;
     padding-bottom: 2.71698px;
     padding-left: 6.79245px;
@@ -791,7 +790,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
  * Giving the connect element a border radius causes issues with using transform: scale
  */
 .noUi-target {
-  background: #d9d5ce;
+  background: #c5c7c6;
   border-radius: 0px; }
 
 .noUi-connects {
